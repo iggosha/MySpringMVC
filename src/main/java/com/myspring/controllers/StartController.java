@@ -13,9 +13,4 @@ public class StartController {
         model.addAttribute("bankName", bankName);
         return "start/bank";
     }
-
-    @GetMapping("/smart_house")
-    public String goodbyePage() {
-        return "start/smart_house";
-    }
 }
