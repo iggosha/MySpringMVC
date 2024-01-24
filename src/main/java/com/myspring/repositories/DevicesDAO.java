@@ -36,4 +36,15 @@ public class DevicesDAO {
                 .orElse(null);
     }
 
+    public void update(long id, Device device) {
+        Device deviceToUpdate = findById(id);
+        deviceToUpdate.setName(device.getName());
+        deviceToUpdate.setDetails(device.getDetails());
+        deviceToUpdate.setPrice(device.getPrice());
+    }
+
+    public void delete(long id) {
+        devices.removeIf(device -> device.getId() == id);
+    }
+
 }

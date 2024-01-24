@@ -50,7 +50,7 @@
 <body>
 <div class="container">
     <section class="our-products">
-        <h1> <a th:href="@{/smarthome/devices}">К товарам</a> </h1>
+        <h1><a th:href="@{/smarthome/devices}">К товарам</a></h1>
     </section>
     <table>
         <caption><h1>Устройство умного дома</h1></caption>
@@ -72,6 +72,52 @@
         </tr>
         </tbody>
     </table>
+
+    <form th:method="patch" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}" th:object="${device}">
+        <table>
+            <caption>Изменение товара</caption>
+            <tr>
+                <th th:text="${device.name}">
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <label>
+                        Введите название:
+                        <input type="text" th:field="*{name}" placeholder="Название" required>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>
+                        Введите описание:
+                        <input type="text" th:field="*{details}" placeholder="Описание">
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <label>
+                        Введите цену:
+                        <input type="number" th:field="*{price}" placeholder="0.0" required>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="Изменить товар">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form th:method="delete" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}">
+        <input type="submit" value="Удалить товар">
+    </form>
+
 </div>
 </body>
 </html>

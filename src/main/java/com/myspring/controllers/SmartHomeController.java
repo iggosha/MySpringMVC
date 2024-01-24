@@ -36,4 +36,16 @@ public class SmartHomeController {
         model.addAttribute("device", devicesDAO.findById(id));
         return "smart_home/device";
     }
+
+    @PatchMapping("/devices/{id}")
+    public String patchDevice(@PathVariable("id") long id, @ModelAttribute("device") Device device) {
+        devicesDAO.update(id, device);
+        return "redirect:/smarthome/devices/{id}";
+    }
+
+    @DeleteMapping("/devices/{id}")
+    public String deleteDevice(@PathVariable("id") long id) {
+        devicesDAO.delete(id);
+        return "redirect:/smarthome/devices";
+    }
 }
