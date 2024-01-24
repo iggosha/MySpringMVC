@@ -13,6 +13,14 @@
             background-color: #f4f4f4;
         }
 
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
         h1 {
             color: #333;
             font-size: 24px;
@@ -20,13 +28,13 @@
 
         table {
             width: 100%;
+            text-align: center;
             border-collapse: collapse;
         }
 
         th, td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
-            text-align: left;
         }
 
         th {
@@ -40,30 +48,75 @@
     </style>
 </head>
 <body>
-<header>
-    <h1>Магазин умного дома</h1>
-    <nav>
-        <ul>
-            <li><a href="#">Каталог</a></li>
-            <li><a href="#">Акции</a></li>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Контакты</a></li>
-        </ul>
-    </nav>
-</header>
+<div class="container">
+    <header>
+        <h1>Магазин умного дома</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Каталог</a></li>
+                <li><a href="#">Акции</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+<!--        <section class="banner">-->
+<!--            <img src="banner.jpg" alt="Баннер магазина умного дома">-->
+<!--        </section>-->
 
-<main>
-    <section class="banner">
-        <img src="banner.jpg" alt="Баннер магазина умного дома">
-    </section>
+        <section class="our-products">
+            <h1><a th:href="@{/smarthome/devices}">Наши продукты</a></h1>
+        </section>
 
-    <section class="our-products">
-        <a href="/smarthome/devices">Наши продукты</a>
-    </section>
-</main>
+        <form th:method="post" th:action="@{/smarthome}" th:object="${device}">
+            <table>
+                <caption>Добавление товара</caption>
+                <tr>
+                    <th>
+                        Новый товар
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <label>
+                            Введите название:
+                            <input type="text" th:field="*{name}" placeholder="Название" required>
+                        </label>
+                    </td>
+                </tr>
 
-<footer>
-    <p>&copy; 2023 Магазин умного дома. Все права защищены.</p>
-</footer>
+                <tr>
+                    <td>
+                        <label>
+                            Введите описание:
+                            <input type="text" th:field="*{details}" placeholder="Описание">
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>
+                            Введите цену:
+                            <input type="number" th:field="*{price}" placeholder="0.0" required>
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="submit" value="Добавить товар">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </main>
+
+
+    <footer>
+        <p>&copy; 2023 Магазин умного дома. Все права защищены.</p>
+    </footer>
+</div>
 </body>
 </html>

@@ -1,13 +1,18 @@
 package com.myspring.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Device {
+
     private long id;
+    @NonNull
     private String name;
+    @NonNull
     private String details;
-    private double price;
+    @NonNull
+    private Double price;
 }

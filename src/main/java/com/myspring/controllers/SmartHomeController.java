@@ -1,12 +1,11 @@
 package com.myspring.controllers;
 
+import com.myspring.models.Device;
 import com.myspring.repositories.DevicesDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -15,9 +14,15 @@ public class SmartHomeController {
 
     private DevicesDAO devicesDAO;
 
-    @GetMapping("")
-    public String getHome() {
+    @GetMapping()
+    public String getStart(@ModelAttribute("device") Device device) {
         return "smart_home/start";
+    }
+
+    @PostMapping()
+    public String postDevice(@ModelAttribute("device") Device device) {
+        devicesDAO.save(device);
+        return "redirect:/smarthome";
     }
 
     @GetMapping("/devices")

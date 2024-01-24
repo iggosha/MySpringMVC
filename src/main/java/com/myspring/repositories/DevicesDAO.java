@@ -14,9 +14,14 @@ public class DevicesDAO {
 
     public DevicesDAO() {
         devices = new ArrayList<>();
-        devices.add(new Device(idCounter++, "Умная лампа", null, 123));
-        devices.add(new Device(idCounter++, "Умная розетка", null, 123));
-        devices.add(new Device(idCounter++, "Датчик температуры и влажности", null, 123));
+        devices.add(new Device(idCounter++, "Умная лампа", "", 111.0));
+        devices.add(new Device(idCounter++, "Умная розетка", "", 222.0));
+        devices.add(new Device(idCounter++, "Датчик температуры и влажности", "", 333.0));
+    }
+
+    public void save(Device device) {
+        device.setId(idCounter++);
+        devices.add(device);
     }
 
     public List<Device> findAll() {
