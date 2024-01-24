@@ -2,9 +2,11 @@ package com.myspring.controllers;
 
 import com.myspring.models.Device;
 import com.myspring.repositories.DevicesDAO;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -20,7 +22,10 @@ public class SmartHomeController {
     }
 
     @PostMapping()
-    public String postDevice(@ModelAttribute("device") Device device) {
+    public String postDevice(@ModelAttribute("device") @Valid Device device, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/smart_home/start";
+        }
         devicesDAO.save(device);
         return "redirect:/smarthome";
     }
@@ -38,7 +43,10 @@ public class SmartHomeController {
     }
 
     @PatchMapping("/devices/{id}")
-    public String patchDevice(@PathVariable("id") long id, @ModelAttribute("device") Device device) {
+    public String patchDevice(@PathVariable("id") long id, @ModelAttribute("device") @Valid Device device, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/smart_home/device";
+        }
         devicesDAO.update(id, device);
         return "redirect:/smarthome/devices/{id}";
     }

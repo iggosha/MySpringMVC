@@ -76,6 +76,7 @@
                 </tr>
                 <tr>
                     <td>
+                        <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Asd</div>
                         <label>
                             Введите название:
                             <input type="text" th:field="*{name}" placeholder="Название" required>
@@ -85,6 +86,8 @@
 
                 <tr>
                     <td>
+                        <div style="color: red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}">Asd</div>
+
                         <label>
                             Введите описание:
                             <input type="text" th:field="*{details}" placeholder="Описание">
@@ -94,6 +97,8 @@
 
                 <tr>
                     <td>
+                        <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
+
                         <label>
                             Введите цену:
                             <input type="number" th:field="*{price}" placeholder="0.0" required>

@@ -1,5 +1,7 @@
 package com.myspring.models;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Data
@@ -9,10 +11,10 @@ import lombok.*;
 public class Device {
 
     private long id;
-    @NonNull
+    @Size(min = 1, max = 100, message = "Имя должно быть не пустым")
     private String name;
     @NonNull
     private String details;
-    @NonNull
+    @DecimalMin(value = "1.0", message = "Цена должна быть больше 0")
     private Double price;
 }
