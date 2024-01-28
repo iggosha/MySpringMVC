@@ -49,21 +49,10 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <h1>Магазин умного дома</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Каталог</a></li>
-                <li><a href="#">Акции</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
     <main>
 
         <section class="our-products">
-            <h1><a th:href="@{/smarthome/devices}">Наши продукты</a></h1>
+            <h1><a th:href="@{/smarthome/devices}">Наши товары</a></h1>
         </section>
 
         <form th:method="post" th:action="@{/smarthome}" th:object="${device}">
@@ -87,7 +76,6 @@
                 <tr>
                     <td>
                         <div style="color: red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}">Asd</div>
-
                         <label>
                             Введите описание:
                             <input type="text" th:field="*{details}" placeholder="Описание">
@@ -98,10 +86,9 @@
                 <tr>
                     <td>
                         <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
-
                         <label>
                             Введите цену:
-                            <input type="number" th:field="*{price}" placeholder="0.0" required>
+                            <input type="number" th:field="*{price}" placeholder="0.0" step="any" required>
                         </label>
                     </td>
                 </tr>
@@ -114,10 +101,8 @@
             </table>
         </form>
     </main>
-
-
     <footer>
-        <p>&copy; 2023 Магазин умного дома. Все права защищены.</p>
+        <p>&copy; 2024 Магазин умного дома. Все права защищены.</p>
     </footer>
 </div>
 </body>

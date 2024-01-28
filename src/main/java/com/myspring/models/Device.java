@@ -11,10 +11,10 @@ import lombok.*;
 public class Device {
 
     private long id;
-    @Size(min = 1, max = 100, message = "Имя должно быть не пустым")
+    @Size(min = 1, max = 100, message = "Название товара должно иметь длину 1-100")
     private String name;
     @NonNull
     private String details;
-    @DecimalMin(value = "1.0", message = "Цена должна быть больше 0")
+    @DecimalMin(value = "1.0", message = "Цена товара должна быть не менее 1")
     private Double price;
 }

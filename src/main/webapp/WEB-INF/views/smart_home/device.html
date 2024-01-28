@@ -105,7 +105,7 @@
                     <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
                     <label>
                         Введите цену:
-                        <input type="number" th:field="*{price}" placeholder="0.0" required>
+                        <input type="number" th:field="*{price}" placeholder="0.0" step="any" required>
                     </label>
                 </td>
             </tr>
@@ -120,7 +120,9 @@
     <form th:method="delete" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}">
         <input type="submit" value="Удалить товар">
     </form>
-
+    <footer>
+        <p>&copy; 2024 Магазин умного дома. Все права защищены.</p>
+    </footer>
 </div>
 </body>
 </html>
