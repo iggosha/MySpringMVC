@@ -11,6 +11,13 @@
     justify-content: center;
 }
 
+.card-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-clamp: 3;
+}
+
 .card-group {
     display: flex;
     flex-wrap: wrap;

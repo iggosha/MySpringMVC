@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
+<head>
+    <title>СмартДом</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
+</head>
+<body>
+<div th:replace="~{/smart_home/header.html}">
+</div>
+<div class="container">
+    <table>
+        <caption>Статья</caption>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Заголовок</th>
+            <th>Содержание</th>
+            <th>Время публикации</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${newscard}">
+            <td th:text="${newscard.id}"></td>
+            <td th:text="${newscard.header}"></td>
+            <td th:text="${newscard.content}"></td>
+            <td th:text="${newscard.creationDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+<!--
+    <br>
+    <br>
+    <form th:method="patch" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}" th:object="${device}">
+        <table>
+            <caption>Изменение товара</caption>
+            <tr>
+                <th th:text="${device.id}">
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Asd</div>
+                    <label>
+                        Введите название:
+                        <input type="text" th:field="*{name}" placeholder="Название" required>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="color:red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
+                    <label>
+                        Введите описание:
+                        <input type="text" th:field="*{details}" placeholder="Описание">
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
+                    <label>
+                        Введите цену:
+                        <input type="number" th:field="*{price}" placeholder="0.0" step="any" required>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="submit" value="Изменить товар" class="card-button">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form th:method="delete" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}">
+        <input type="submit" value="Удалить товар" class="card-button">
+    </form>-->
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
+</body>
+</html>

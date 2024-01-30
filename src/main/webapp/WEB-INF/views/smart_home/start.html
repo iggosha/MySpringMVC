@@ -23,35 +23,27 @@
             <h2>Последние посты на нашем блоге</h2>
             <div class="card-container">
                 <div class="card-group">
-                    <div class="card">
-                        <h3>Заголовок новости</h3>
-                        <p>Дата публикации</p>
-                        <p>Обрезанное содержание новости...</p>
-                        <a href="#" class="card-button">Подробнее</a>
-                    </div>
-                    <div class="card">
-                        <h3>Заголовок новости</h3>
-                        <p>Дата публикации</p>
-                        <p>Обрезанное содержание новости...</p>
-                        <a href="#" class="card-button">Подробнее</a>
+                    <div class="card" th:each="newscard : ${newscards}">
+                        <h3 th:text="${newscard.header}"></h3>
+                        <p th:text="${newscard.content}" class="card-content"></p>
+                        <p th:text="${#temporals.format(newscard.creationDate, 'DD/MM/YY HH:MM')}"></p>
+                        <a th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" class="card-button">Подробнее</a>
                     </div>
                 </div>
             </div>
         </section>
         <section>
             <h2>Последние товары в нашем магазине</h2>
-            <section>
-                <div class="card-container">
-                    <div class="card-group">
-                        <div class="card" th:each="device : ${devices}">
-                            <h3 th:text="${device.name}"></h3>
-                            <span th:text="${device.price}"></span>$
-                            <p th:text="${device.details}"></p>
-                            <a th:href="@{/smarthome/devices/{id}(id=${device.getId()})}" class="card-button">Подробнее</a>
-                        </div>
+            <div class="card-container">
+                <div class="card-group">
+                    <div class="card" th:each="device : ${devices}">
+                        <h3 th:text="${device.name}"></h3>
+                        <span th:text="${device.price}"></span>$
+                        <p th:text="${device.details}"></p>
+                        <a th:href="@{/smarthome/devices/{id}(id=${device.getId()})}" class="card-button">Подробнее</a>
                     </div>
                 </div>
-            </section>
+            </div>
         </section>
     </main>
 
