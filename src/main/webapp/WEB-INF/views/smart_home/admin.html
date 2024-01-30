@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
+<head>
+    <title>СмартДом</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
+</head>
+<body>
+<div th:replace="~{/smart_home/header.html}">
+</div>
+<div class="container">
+    <main>
+        <form th:method="post" th:action="@{/smarthome/admin}" th:object="${device}">
+            Добавление товара
+            <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Asd</div>
+            <label>
+                Введите название:
+                <input type="text" th:field="*{name}" placeholder="Название" required>
+            </label>
+            <div style="color: red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}">Asd</div>
+            <label>
+                Введите описание:
+                <input type="text" th:field="*{details}" placeholder="Описание">
+            </label>
+            <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
+            <label>
+                Введите цену:
+                <input type="number" th:field="*{price}" placeholder="0.0" step="any" required>
+            </label>
+            <input type="submit" value="Добавить товар" class="card-button">
+        </form>
+    </main>
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
+</body>
+</html>

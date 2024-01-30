@@ -40,18 +40,24 @@ public class DevicesRepository {
                 new BeanPropertyRowMapper<>(Device.class));
     }
 
-    public Optional<Device> findById(long id) {
-        return jdbcTemplate.query("SELECT * FROM devices WHERE id = ?",
-                        new BeanPropertyRowMapper<>(Device.class),
-                        id)
-                .stream()
-                .findAny();
+    public List<Device> findBunchOfLastLimited(int limit) {
+        return jdbcTemplate.query("SELECT * FROM devices ORDER BY id DESC LIMIT ?",
+                new BeanPropertyRowMapper<>(Device.class),
+                limit);
     }
 
     public Optional<Device> findByName(String name) {
         return jdbcTemplate.query("SELECT * FROM devices WHERE name = ?",
                         new BeanPropertyRowMapper<>(Device.class),
                         name)
+                .stream()
+                .findAny();
+    }
+
+    public Optional<Device> findById(long id) {
+        return jdbcTemplate.query("SELECT * FROM devices WHERE id = ?",
+                        new BeanPropertyRowMapper<>(Device.class),
+                        id)
                 .stream()
                 .findAny();
     }

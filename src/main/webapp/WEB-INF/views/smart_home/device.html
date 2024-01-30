@@ -1,60 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xml:lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Устройство умного дома</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-            font-size: 24px;
-        }
-
-        table {
-            width: 100%;
-            text-align: center;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f1f1f1;
-            font-weight: bold;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
+    <title>СмартДом</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
 </head>
 <body>
+<div th:replace="~{/smart_home/header.html}">
+</div>
 <div class="container">
-    <section class="our-products">
-        <h1><a th:href="@{/smarthome/devices}">К товарам</a></h1>
-    </section>
     <table>
-        <caption><h1>Устройство умного дома</h1></caption>
-
+        <caption>Устройство умного дома</caption>
         <thead>
         <tr>
             <th>ID</th>
@@ -66,18 +24,20 @@
         <tbody>
         <tr th:if="${device}">
             <td th:text="${device.id}"></td>
-            <td th:text="${device.name}"><a th:href=""></a></td>
+            <td th:text="${device.name}"></td>
             <td th:text="${device.details}"></td>
             <td th:text="${device.price}"></td>
         </tr>
         </tbody>
     </table>
 
+    <br>
+    <br>
     <form th:method="patch" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}" th:object="${device}">
         <table>
             <caption>Изменение товара</caption>
             <tr>
-                <th th:text="${device.name}">
+                <th th:text="${device.id}">
                 </th>
             </tr>
             <tr>
@@ -89,7 +49,6 @@
                     </label>
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <div style="color:red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
@@ -99,7 +58,6 @@
                     </label>
                 </td>
             </tr>
-
             <tr>
                 <td>
                     <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
@@ -112,16 +70,16 @@
 
             <tr>
                 <td>
-                    <input type="submit" value="Изменить товар">
+                    <input type="submit" value="Изменить товар" class="card-button">
                 </td>
             </tr>
         </table>
     </form>
     <form th:method="delete" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}">
-        <input type="submit" value="Удалить товар">
+        <input type="submit" value="Удалить товар" class="card-button">
     </form>
     <footer>
-        <p>&copy; 2024 Магазин умного дома. Все права защищены.</p>
+        <p>&copy; СмартДом, 2024</p>
     </footer>
 </div>
 </body>

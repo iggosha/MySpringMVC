@@ -18,18 +18,7 @@ public class SmartHomeController {
     private DevicesRepository devicesRepository;
     private DeviceValidator deviceValidator;
 
-    @PostMapping()
-    public String postDevice(@ModelAttribute("device") @Valid Device device,
-                             BindingResult bindingResult) {
-        deviceValidator.validate(device, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "/smart_home/start";
-        }
-        devicesRepository.save(device);
-        return "redirect:/smarthome";
-    }
-
-    @PatchMapping("/devices/{id}")
+    @PatchMapping({"/devices/{id}","/devices/{id}/"})
     public String patchDevice(@PathVariable("id") long id,
                               @ModelAttribute("device") @Valid Device device,
                               BindingResult bindingResult) {
@@ -41,24 +30,25 @@ public class SmartHomeController {
         return "redirect:/smarthome/devices/{id}";
     }
 
-    @GetMapping()
-    public String getStart(@ModelAttribute("device") Device device) {
+    @GetMapping({"", "/"})
+    public String getStart(Model model) {
+        model.addAttribute("devices", devicesRepository.findBunchOfLastLimited(4));
         return "smart_home/start";
     }
 
-    @GetMapping("/devices")
+    @GetMapping({"/devices","/devices/"})
     public String getDevices(Model model) {
         model.addAttribute("devices", devicesRepository.findAll());
         return "smart_home/devices";
     }
 
-    @GetMapping("/devices/{id}")
+    @GetMapping({"/devices/{id}", "/devices/{id}/"})
     public String getDevice(@PathVariable("id") long id, Model model) {
         model.addAttribute("device", devicesRepository.findById(id).orElse(null));
         return "smart_home/device";
     }
 
-    @DeleteMapping("/devices/{id}")
+    @DeleteMapping({"/devices/{id}", "/devices/{id}/"})
     public String deleteDevice(@PathVariable("id") long id) {
         devicesRepository.deleteById(id);
         return "redirect:/smarthome/devices";

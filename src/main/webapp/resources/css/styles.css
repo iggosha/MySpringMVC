@@ -1,0 +1,55 @@
+body {
+    font-family: 'Consolas L', sans-serif;
+    color: #F5F5F5 ;
+    line-height: 2.0;
+    font-size: 2vh;
+    background-color: #1C1C1C ;
+}
+
+.container {
+    width: 50vw;
+    margin: 0 auto;
+    padding: 2vw;
+    background-color: #1F1F1F ;
+}
+
+a {
+    color: #2ECC71;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2ECC71;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #2ECC71;
+    text-decoration: underline;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    border-bottom: 1px solid #2ECC71 ;
+}
+
+header a {
+    padding: 0 5vw;
+    font-size: 4vh;
+}
+
+h1 {
+    font-size: 4vh;
+}
+
+header img {
+    height: 6vh;
+}
+
+label {
+    display: block;
+    margin-bottom: 2vh;
+}
+

@@ -1,76 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Smart Home Devices</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+    <title>СмартДом</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
 
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-            font-size: 24px;
-        }
-
-        table {
-            width: 100%;
-            text-align: center;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f1f1f1;
-            font-weight: bold;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
 </head>
 <body>
-
+<div th:replace="~{/smart_home/header.html}">
+</div>
 <div class="container">
-    <section class="our-products">
-        <h1><a th:href="@{/smarthome}">В начало</a></h1>
+    <section>
+        <h2>Наши товары</h2>
+        <div class="card-container">
+            <div class="card-group">
+                <div class="card" th:each="device : ${devices}">
+                    <h3 th:text="${device.name}"></h3>
+                    <span th:text="${device.price}"></span>$
+                    <p th:text="${device.details}"></p>
+                    <a th:href="@{/smarthome/devices/{id}(id=${device.getId()})}" class="card-button">Подробнее</a>
+                </div>
+            </div>
+        </div>
     </section>
-    <table>
-        <caption><h1>Устройства умного дома</h1></caption>
-        <thead>
-        <tr>
-            <th>Название</th>
-            <th>Цена</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="device : ${devices}">
-            <td>
-                <a th:href="@{/smarthome/devices/{id}(id=${device.getId()})}" th:text="${device.name}"></a>
-            </td>
-            <td th:text="${device.price}"></td>
-        </tr>
-        </tbody>
-    </table>
+
     <footer>
-        <p>&copy; 2024 Магазин умного дома. Все права защищены.</p>
+        <p>&copy; СмартДом, 2024</p>
     </footer>
 </div>
 </body>

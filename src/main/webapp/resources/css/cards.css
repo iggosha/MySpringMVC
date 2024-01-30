@@ -1,0 +1,25 @@
+.card {
+    border: 1px solid #2ECC71;
+    border-radius: 1vh;
+    padding: 2vh;
+    margin: 1vh;
+    width: 15vw;
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-button {
+    background-color: #2ECC71;
+    color: #F5F5F5;
+    padding: 1vh;
+    border-radius: 1vh;
+}
