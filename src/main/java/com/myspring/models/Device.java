@@ -1,7 +1,7 @@
 package com.myspring.models;
 
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Data
@@ -11,7 +11,7 @@ import lombok.*;
 public class Device {
 
     private long id;
-    @Size(min = 1, max = 100, message = "Название товара должно иметь длину 1-100")
+    @Pattern(regexp = "^[A-ZА-Я][ -~а-яА-Я]{1,30}", message = "Название товара должно начинаться с большой буквы и содержать 1-30 других символов")
     private String name;
     @NonNull
     private String details;
