@@ -24,9 +24,10 @@ public class NewsCardsRepository {
     }
 
     public void updateById(long id, NewsCard newsCard) {
-        jdbcTemplate.update("UPDATE newscards SET header = ?, content = ? WHERE id = ?",
+        jdbcTemplate.update("UPDATE newscards SET header = ?, content = ?, creation_date = ? WHERE id = ?",
                 newsCard.getHeader(),
                 newsCard.getContent(),
+                newsCard.getCreationDate(),
                 id);
     }
 

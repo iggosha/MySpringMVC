@@ -6,7 +6,7 @@ table {
 
 th, td {
     padding: 10px;
-    border-bottom: 1px solid #2ECC71 ;
+    border-bottom: 1px solid #2ECC71;
 }
 
 th {
@@ -14,5 +14,5 @@ th {
 }
 
 tr:hover {
-    background-color: #1F1F1F ;
+    background-color: #1F1F1F;
 }

@@ -5,6 +5,7 @@
     margin: 1vh;
     width: 15vw;
 }
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -16,12 +17,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     line-clamp: 3;
-}
-
-.card-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 .card-button {

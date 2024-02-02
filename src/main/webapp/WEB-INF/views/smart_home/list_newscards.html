@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>СмартДом</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
 </head>
 <body>
-
+<div th:replace="~{/smart_home/header.html}">
+</div>
+<div class="container">
+    <section>
+        <h2>Новости блога</h2>
+        <div class="card-container">
+            <div class="card" th:each="newscard : ${newscards}">
+                <h3 th:text="${newscard.header}"></h3>
+                <p th:text="${newscard.content}"></p>
+                <p th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yy HH:mm')}"></p>
+                <a th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" class="card-button">Подробнее</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
 </body>
 </html>

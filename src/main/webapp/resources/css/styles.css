@@ -1,15 +1,15 @@
 body {
     font-family: 'Consolas L', sans-serif;
-    color: #F5F5F5 ;
+    color: #F5F5F5;
     font-size: 2vh;
-    background-color: #1C1C1C ;
+    background-color: #1C1C1C;
 }
 
 .container {
     width: 50vw;
     margin: 0 auto;
     padding: 2vw;
-    background-color: #1F1F1F ;
+    background-color: #1F1F1F;
 }
 
 a {
@@ -19,19 +19,22 @@ a {
 
 a:hover {
     color: #2ECC71;
-    text-decoration: underline;
+    background-color: #1F1F1F;
+    text-decoration: none;
 }
 
 a:active {
     color: #2ECC71;
-    text-decoration: underline;
+    background-color: #1F1F1F;
+    text-decoration: none;
 }
 
 header {
     display: flex;
     justify-content: center;
     justify-items: center;
-    border-bottom: 1px solid #2ECC71 ;
+    padding-bottom: 2vh;
+    border-bottom: 1px solid #2ECC71;
 }
 
 header a {

@@ -15,13 +15,11 @@
     <section>
         <h2>Наши товары</h2>
         <div class="card-container">
-            <div class="card-group">
-                <div class="card" th:each="device : ${devices}">
-                    <h3 th:text="${device.name}"></h3>
-                    <span th:text="${device.price}"></span>$
-                    <p th:text="${device.details}"></p>
-                    <a th:href="@{/smarthome/devices/{id}(id=${device.getId()})}" class="card-button">Подробнее</a>
-                </div>
+            <div class="card" th:each="device : ${devices}">
+                <h3 th:text="${device.name}"></h3>
+                <span th:text="${device.price}"></span>$
+                <p th:text="${device.details}"></p>
+                <a th:href="@{/smarthome/devices/{id}(id=${device.getId()})}" class="card-button">Подробнее</a>
             </div>
         </div>
     </section>

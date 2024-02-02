@@ -26,58 +26,38 @@
             <td th:text="${newscard.id}"></td>
             <td th:text="${newscard.header}"></td>
             <td th:text="${newscard.content}"></td>
-            <td th:text="${newscard.creationDate}"></td>
+            <td th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
         </tr>
         </tbody>
     </table>
-<!--
-    <br>
-    <br>
-    <form th:method="patch" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}" th:object="${device}">
-        <table>
-            <caption>Изменение товара</caption>
-            <tr>
-                <th th:text="${device.id}">
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Asd</div>
-                    <label>
-                        Введите название:
-                        <input type="text" th:field="*{name}" placeholder="Название" required>
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="color:red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
-                    <label>
-                        Введите описание:
-                        <input type="text" th:field="*{details}" placeholder="Описание">
-                    </label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Asd</div>
-                    <label>
-                        Введите цену:
-                        <input type="number" th:field="*{price}" placeholder="0.0" step="any" required>
-                    </label>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <input type="submit" value="Изменить товар" class="card-button">
-                </td>
-            </tr>
-        </table>
+    <br>
+    <br>
+    <form th:method="patch" th:action="@{/smarthome/newscards/{id}(id =${newscard.getId()})}" th:object="${newscard}">
+        Изменение новости
+        <br>
+        <p th:text="${newscard.id}">
+        </p>
+        <div style="color:red" th:if="${#fields.hasErrors('header')}" th:errors="*{header}"></div>
+        <label>
+            Введите заголовок:
+            <input type="text" th:field="*{header}" placeholder="заголовок" required>
+        </label>
+        <div style="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+        <label>
+            Введите содержание:
+            <input type="text" th:field="*{content}" placeholder="Содержание">
+        </label>
+        <div style="color:red" th:if="${#fields.hasErrors('creationDate')}" th:errors="*{creationDate}"></div>
+        <label>
+            Введите дату публикации:
+            <input type="datetime-local" th:field="*{creationDate}" step="any" required>
+        </label>
+        <input type="submit" value="Изменить новость" class="card-button">
     </form>
-    <form th:method="delete" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}">
-        <input type="submit" value="Удалить товар" class="card-button">
-    </form>-->
+    <form th:method="delete" th:action="@{/smarthome/newscards/{id}(id =${newscard.getId()})}">
+        <input type="submit" value="Удалить новость" class="card-button">
+    </form>
     <footer>
         <p>&copy; СмартДом, 2024</p>
     </footer>
