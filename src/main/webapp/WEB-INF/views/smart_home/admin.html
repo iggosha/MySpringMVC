@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
-<head>
-    <title>СмартДом</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
-</head>
-<body>
-<div th:replace="~{/smart_home/header.html}">
-</div>
+<div th:replace="~{/smart_home/header.html}"></div>
 <div class="container">
     <main>
         <form th:method="post" th:action="@{/smarthome/admin/device}" th:object="${device}">
-            Добавление товара
-            <br>
+            <h1 style="text-align: center">Добавление товара</h1>
             <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
             <label>
                 Введите название:
@@ -36,8 +24,7 @@
         <br>
 
         <form th:method="post" th:action="@{/smarthome/admin/newscard}" th:object="${newscard}">
-            Изменение новости
-            <br>
+            <h1 style="text-align: center">Изменение новости</h1>
             <label>
                 Введите заголовок:
                 <input type="text" th:field="*{header}" placeholder="Заголовок" required>
@@ -50,7 +37,24 @@
                 Введите дату публикации:
                 <input type="datetime-local" th:field="*{creationDate}" step="any" required>
             </label>
+            <label>
+                Выберите автора:
+                <select th:field="*{authorId}">
+                    <option th:each="author: ${authors}" th:value="${author.getId()}"
+                            th:text="${author.getFullName()}"></option>
+                </select>
+            </label>
             <input type="submit" value="Добавить новость" class="card-button">
+        </form>
+        <br>
+
+        <form th:method="post" th:action="@{/smarthome/admin/author}" th:object="${author}">
+            <h1 style="text-align: center">Изменение автора</h1>
+            <label>
+                Введите полное имя:
+                <input type="text" th:field="*{fullName}" placeholder="Полное имя Автора" required>
+            </label>
+            <input type="submit" value="Добавить автора" class="card-button">
         </form>
     </main>
     <footer>

@@ -1,0 +1,18 @@
+<div th:replace="~{/smart_home/header.html}"></div>
+
+<div class="container">
+    <section>
+        <h2>Авторы блога</h2>
+        <div class="card-container">
+            <div class="card" th:each="author : ${authors}">
+                <h3 th:text="${author.fullName}"></h3>
+                <a th:href="@{/smarthome/authors/{id}(id=${author.getId()})}" class="card-button">Подробнее</a>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
+</body>
+</html>

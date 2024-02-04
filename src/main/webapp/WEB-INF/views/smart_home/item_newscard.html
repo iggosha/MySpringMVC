@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
-<head>
-    <title>СмартДом</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/resources/css/styles.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/resources/css/tables.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/resources/css/cards.css}" type="text/css">
-</head>
-<body>
-<div th:replace="~{/smart_home/header.html}">
-</div>
+<div th:replace="~{/smart_home/header.html}"></div>
+
 <div class="container">
     <table>
         <caption>Статья</caption>
@@ -19,6 +9,8 @@
             <th>Заголовок</th>
             <th>Содержание</th>
             <th>Время публикации</th>
+            <th>ID Автора</th>
+            <th>Имя автора</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +19,9 @@
             <td th:text="${newscard.header}"></td>
             <td th:text="${newscard.content}"></td>
             <td th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
+            <td th:text="${newscard.getAuthorId()}"></td>
+            <td><a th:text="${authorObj.getFullName()}"
+                   th:href="@{/smarthome/authors/{id}(id=${authorObj.getId()})}"></a></td>
         </tr>
         </tbody>
     </table>
@@ -41,7 +36,7 @@
         <div style="color:red" th:if="${#fields.hasErrors('header')}" th:errors="*{header}"></div>
         <label>
             Введите заголовок:
-            <input type="text" th:field="*{header}" placeholder="заголовок" required>
+            <input type="text" th:field="*{header}" placeholder="Заголовок" required>
         </label>
         <div style="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
         <label>
@@ -52,6 +47,14 @@
         <label>
             Введите дату публикации:
             <input type="datetime-local" th:field="*{creationDate}" step="any" required>
+        </label>
+        <div style="color:red" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></div>
+        <label>
+            Выберите автора:
+            <select th:field="*{authorId}">
+                <option th:each="author: ${authors}" th:value="${author.getId()}"
+                        th:text="${author.getFullName()}"></option>
+            </select>
         </label>
         <input type="submit" value="Изменить новость" class="card-button">
     </form>

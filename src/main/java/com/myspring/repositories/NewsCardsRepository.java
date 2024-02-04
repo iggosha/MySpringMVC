@@ -17,22 +17,20 @@ public class NewsCardsRepository {
 
 
     public void save(NewsCard newsCard) {
-        jdbcTemplate.update("INSERT INTO newscards(header, content) VALUES(?,?)",
+        jdbcTemplate.update("INSERT INTO newscards(header, content, author_id) VALUES(?,?,?)",
                 newsCard.getHeader(),
-                newsCard.getContent()
+                newsCard.getContent(),
+                newsCard.getAuthorId()
         );
     }
 
     public void updateById(long id, NewsCard newsCard) {
-        jdbcTemplate.update("UPDATE newscards SET header = ?, content = ?, creation_date = ? WHERE id = ?",
+        jdbcTemplate.update(
+                "UPDATE newscards SET header = ?, content = ?, creation_date = ?, author_id  = ? WHERE id = ?",
                 newsCard.getHeader(),
                 newsCard.getContent(),
                 newsCard.getCreationDate(),
-                id);
-    }
-
-    public void deleteById(long id) {
-        jdbcTemplate.update("DELETE FROM newscards WHERE id = ?",
+                newsCard.getAuthorId(),
                 id);
     }
 
@@ -45,6 +43,17 @@ public class NewsCardsRepository {
         return jdbcTemplate.query("SELECT * FROM newscards ORDER BY id DESC LIMIT ?",
                 new BeanPropertyRowMapper<>(NewsCard.class),
                 limit);
+    }
+
+    public List<NewsCard> findByAuthorId(long authorId) {
+        return jdbcTemplate.query("SELECT * FROM newscards WHERE author_id = ?",
+                new BeanPropertyRowMapper<>(NewsCard.class),
+                authorId);
+    }
+
+    public void deleteById(long id) {
+        jdbcTemplate.update("DELETE FROM newscards WHERE id = ?",
+                id);
     }
 
     public Optional<NewsCard> findById(long id) {

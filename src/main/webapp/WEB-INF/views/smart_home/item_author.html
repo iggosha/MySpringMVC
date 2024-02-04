@@ -1,0 +1,44 @@
+<div th:replace="~{/smart_home/header.html}"></div>
+
+<div class="container">
+    <table>
+        <caption>Статья</caption>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Опубликованные новости</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${author}">
+            <td th:text="${author.id}"></td>
+            <td th:text="${author.fullName}"></td>
+            <td><a th:each="newscard: ${newscards}" th:text="${newscard.getHeader()}"
+                   th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" style="display: block"></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <form th:method="patch" th:action="@{/smarthome/authors/{id}(id =${author.getId()})}" th:object="${author}">
+        Изменение автора
+        <br>
+        <p th:text="${author.id}"></p>
+        <div style="color:red" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+        <label>
+            Введите полное имя:
+            <input type="text" th:field="*{fullName}" placeholder="Полное имя" required>
+        </label>
+        <input type="submit" value="Изменить автора" class="card-button">
+    </form>
+    <form th:method="delete" th:action="@{/smarthome/authors/{id}(id =${author.getId()})}">
+        <input type="submit" value="Удалить автора" class="card-button">
+    </form>
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
+</body>
+</html>
