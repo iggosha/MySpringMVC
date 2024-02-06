@@ -29,3 +29,12 @@ create table public.newscards
         references public.authors
 );
 
+ALTER TABLE newscards
+    DROP CONSTRAINT IF EXISTS newscards_author_id_fkey;
+
+ALTER TABLE newscards
+    ADD CONSTRAINT newscards_author_id_fkey
+        FOREIGN KEY (author_id)
+            REFERENCES authors (id)
+            ON DELETE CASCADE;
+

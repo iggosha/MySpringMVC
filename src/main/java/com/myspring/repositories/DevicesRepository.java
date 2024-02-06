@@ -2,9 +2,10 @@ package com.myspring.repositories;
 
 import com.myspring.models.Device;
 import lombok.AllArgsConstructor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,52 +14,56 @@ import java.util.Optional;
 @AllArgsConstructor
 public class DevicesRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final Session session;
 
+    @Transactional
     public void save(Device device) {
-        jdbcTemplate.update("INSERT INTO devices(name, details, price) VALUES(?,?,?)",
-                device.getName(),
-                device.getDetails(),
-                device.getPrice());
+        session.beginTransaction();
+        session.persist(device);
+        session.getTransaction().commit();
     }
 
+    @Transactional
     public void updateById(long id, Device device) {
-        jdbcTemplate.update("UPDATE devices SET name = ?, details = ?, price = ? WHERE id = ?",
-                device.getName(),
-                device.getDetails(),
-                device.getPrice(),
-                id);
+        session.beginTransaction();
+        Device deviceFromDb = session.get(Device.class, id);
+        deviceFromDb.setName(device.getName());
+        deviceFromDb.setDetails(device.getDetails());
+        deviceFromDb.setPrice(device.getPrice());
+        session.getTransaction().commit();
     }
 
+    @Transactional
     public void deleteById(long id) {
-        jdbcTemplate.update("DELETE FROM devices WHERE id = ?",
-                id);
+        session.beginTransaction();
+        session.remove(session.get(Device.class, id));
+        session.getTransaction().commit();
+
     }
 
+    @Transactional(readOnly = true)
     public List<Device> findAll() {
-        return jdbcTemplate.query("SELECT * FROM devices",
-                new BeanPropertyRowMapper<>(Device.class));
+        session.beginTransaction();
+        List<Device> devices = session.createQuery("FROM Device", Device.class).getResultList();
+        session.getTransaction().commit();
+        return devices;
     }
 
+    @Transactional(readOnly = true)
     public List<Device> findBunchOfLastLimited(int limit) {
-        return jdbcTemplate.query("SELECT * FROM devices ORDER BY id DESC LIMIT ?",
-                new BeanPropertyRowMapper<>(Device.class),
-                limit);
+        session.beginTransaction();
+        Query<Device> query = session.createQuery("FROM Device ORDER BY id DESC", Device.class);
+        query.setMaxResults(limit);
+        List<Device> devices = query.getResultList();
+        session.getTransaction().commit();
+        return devices;
     }
 
-    public Optional<Device> findByName(String name) {
-        return jdbcTemplate.query("SELECT * FROM devices WHERE name = ?",
-                        new BeanPropertyRowMapper<>(Device.class),
-                        name)
-                .stream()
-                .findAny();
-    }
-
+    @Transactional(readOnly = true)
     public Optional<Device> findById(long id) {
-        return jdbcTemplate.query("SELECT * FROM devices WHERE id = ?",
-                        new BeanPropertyRowMapper<>(Device.class),
-                        id)
-                .stream()
-                .findAny();
+        session.beginTransaction();
+        Optional<Device> device = Optional.of(session.get(Device.class, id));
+        session.getTransaction().commit();
+        return device;
     }
 }

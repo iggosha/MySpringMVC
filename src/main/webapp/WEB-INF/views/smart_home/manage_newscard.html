@@ -1,0 +1,33 @@
+<div th:replace="~{/smart_home/header.html}"></div>
+<div class="container">
+    <main>
+        <form th:method="post" th:action="@{/smarthome/admin/manage/newscard}" th:object="${newscard}">
+            <h1 style="text-align: center">Добавление новости</h1>
+            <label>
+                Введите заголовок:
+                <input type="text" th:field="*{header}" placeholder="Заголовок" required>
+            </label>
+            <label>
+                Введите содержание:
+                <input type="text" th:field="*{content}" placeholder="Содержание">
+            </label>
+            <label>
+                Введите дату публикации:
+                <input type="datetime-local" th:field="*{creationDate}" step="any">
+            </label>
+            <label>
+                Выберите автора:
+                <select th:field="*{author.id}">
+                    <option th:each="author: ${authors}" th:value="${author.id}"
+                            th:text="${author.getFullName()}"></option>
+                </select>
+            </label>
+            <input type="submit" value="Добавить новость" class="card-button">
+        </form>
+    </main>
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
+</body>
+</html>

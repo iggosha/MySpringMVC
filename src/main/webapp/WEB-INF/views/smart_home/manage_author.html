@@ -1,0 +1,19 @@
+<div th:replace="~{/smart_home/header.html}"></div>
+<div class="container">
+    <main>
+
+        <form th:method="post" th:action="@{/smarthome/admin/manage/author}" th:object="${author}">
+            <h1 style="text-align: center">Добавление автора</h1>
+            <label>
+                Введите полное имя:
+                <input type="text" th:field="*{fullName}" placeholder="Полное имя Автора" required>
+            </label>
+            <input type="submit" value="Добавить автора" class="card-button">
+        </form>
+    </main>
+    <footer>
+        <p>&copy; СмартДом, 2024</p>
+    </footer>
+</div>
+</body>
+</html>

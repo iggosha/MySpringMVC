@@ -1,15 +1,17 @@
 package com.myspring.config;
 
+import com.myspring.models.Author;
+import com.myspring.models.Device;
+import com.myspring.models.NewsCard;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -17,8 +19,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
-
-import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.myspring")
@@ -29,13 +29,6 @@ public class SpringConfig implements WebMvcConfigurer {
 
     @NotNull
     private final ApplicationContext applicationContext;
-
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-    @Value("${spring.datasource.username}")
-    private String dbUsername;
-    @Value("${spring.datasource.password}")
-    private String dbPassword;
 
     @Bean
     public SpringTemplateEngine templateEngine() {
@@ -68,18 +61,19 @@ public class SpringConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
+
     @Bean
-    public DataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl(dbUrl);
-        dataSource.setUsername(dbUsername);
-        dataSource.setPassword(dbPassword);
-        return dataSource;
+    public SessionFactory sessionFactory(){
+        org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration()
+                .addAnnotatedClass(Author.class)
+                .addAnnotatedClass(NewsCard.class)
+                .addAnnotatedClass(Device.class)
+                ;
+        return configuration.buildSessionFactory();
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(getDataSource());
+    public Session session() {
+        return sessionFactory().openSession();
     }
 }

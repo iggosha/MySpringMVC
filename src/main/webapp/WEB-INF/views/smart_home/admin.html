@@ -1,61 +1,11 @@
 <div th:replace="~{/smart_home/header.html}"></div>
 <div class="container">
     <main>
-        <form th:method="post" th:action="@{/smarthome/admin/device}" th:object="${device}">
-            <h1 style="text-align: center">Добавление товара</h1>
-            <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-            <label>
-                Введите название:
-                <input type="text" th:field="*{name}" placeholder="Название" required>
-            </label>
-            <div style="color: red" th:if="${#fields.hasErrors('details')}" th:errors="*{details}"></div>
-            <label>
-                Введите описание:
-                <input type="text" th:field="*{details}" placeholder="Описание">
-            </label>
-            <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-            <label>
-                Введите цену:
-                <input type="number" th:field="*{price}" placeholder="0.0" step="any" required>
-            </label>
-            <input type="submit" value="Добавить товар" class="card-button">
-        </form>
-
-        <br>
-
-        <form th:method="post" th:action="@{/smarthome/admin/newscard}" th:object="${newscard}">
-            <h1 style="text-align: center">Изменение новости</h1>
-            <label>
-                Введите заголовок:
-                <input type="text" th:field="*{header}" placeholder="Заголовок" required>
-            </label>
-            <label>
-                Введите содержание:
-                <input type="text" th:field="*{content}" placeholder="Содержание">
-            </label>
-            <label>
-                Введите дату публикации:
-                <input type="datetime-local" th:field="*{creationDate}" step="any" required>
-            </label>
-            <label>
-                Выберите автора:
-                <select th:field="*{authorId}">
-                    <option th:each="author: ${authors}" th:value="${author.getId()}"
-                            th:text="${author.getFullName()}"></option>
-                </select>
-            </label>
-            <input type="submit" value="Добавить новость" class="card-button">
-        </form>
-        <br>
-
-        <form th:method="post" th:action="@{/smarthome/admin/author}" th:object="${author}">
-            <h1 style="text-align: center">Изменение автора</h1>
-            <label>
-                Введите полное имя:
-                <input type="text" th:field="*{fullName}" placeholder="Полное имя Автора" required>
-            </label>
-            <input type="submit" value="Добавить автора" class="card-button">
-        </form>
+        <div>
+            <a th:href="@{/smarthome/admin/manage/device}" class="card-button">Товары</a>
+            <a th:href="@{/smarthome/admin/manage/newscard}" class="card-button">Блог</a>
+            <a th:href="@{/smarthome/admin/manage/author}" class="card-button">Авторы</a>
+        </div>
     </main>
     <footer>
         <p>&copy; СмартДом, 2024</p>

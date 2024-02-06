@@ -1,11 +1,14 @@
 package com.myspring.repositories;
 
+import com.myspring.models.Author;
 import com.myspring.models.NewsCard;
 import lombok.AllArgsConstructor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,54 +16,77 @@ import java.util.Optional;
 @AllArgsConstructor
 public class NewsCardsRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final Session session;
 
-
+    @Transactional
     public void save(NewsCard newsCard) {
-        jdbcTemplate.update("INSERT INTO newscards(header, content, author_id) VALUES(?,?,?)",
-                newsCard.getHeader(),
-                newsCard.getContent(),
-                newsCard.getAuthorId()
-        );
+        session.beginTransaction();
+        newsCard.setAuthor(session.get(Author.class, newsCard.getAuthor().getId()));
+        if (newsCard.getCreationDate()!=null) {
+            newsCard.setCreationDate(newsCard.getCreationDate());
+        } else {
+            newsCard.setCreationDate(LocalDateTime.now());
+        }
+        session.persist(newsCard);
+        session.getTransaction().commit();
     }
 
+    @Transactional
     public void updateById(long id, NewsCard newsCard) {
-        jdbcTemplate.update(
-                "UPDATE newscards SET header = ?, content = ?, creation_date = ?, author_id  = ? WHERE id = ?",
-                newsCard.getHeader(),
-                newsCard.getContent(),
-                newsCard.getCreationDate(),
-                newsCard.getAuthorId(),
-                id);
+        session.beginTransaction();
+        NewsCard newsCardFromDb = session.get(NewsCard.class, id);
+        newsCardFromDb.setHeader(newsCard.getHeader());
+        newsCardFromDb.setContent(newsCard.getContent());
+        if (newsCard.getCreationDate()!=null) {
+            newsCardFromDb.setCreationDate(newsCard.getCreationDate());
+        } else {
+            newsCardFromDb.setCreationDate(LocalDateTime.now());
+        }
+        newsCardFromDb.setAuthor(session.get(Author.class, newsCard.getAuthor().getId()));
+        session.getTransaction().commit();
     }
 
-    public List<NewsCard> findAll() {
-        return jdbcTemplate.query("SELECT * FROM newscards",
-                new BeanPropertyRowMapper<>(NewsCard.class));
-    }
-
-    public List<NewsCard> findBunchOfLastLimited(int limit) {
-        return jdbcTemplate.query("SELECT * FROM newscards ORDER BY id DESC LIMIT ?",
-                new BeanPropertyRowMapper<>(NewsCard.class),
-                limit);
-    }
-
-    public List<NewsCard> findByAuthorId(long authorId) {
-        return jdbcTemplate.query("SELECT * FROM newscards WHERE author_id = ?",
-                new BeanPropertyRowMapper<>(NewsCard.class),
-                authorId);
-    }
-
+    @Transactional
     public void deleteById(long id) {
-        jdbcTemplate.update("DELETE FROM newscards WHERE id = ?",
-                id);
+        session.beginTransaction();
+        session.remove(session.get(NewsCard.class, id));
+        session.getTransaction().commit();
     }
 
+    @Transactional(readOnly = true)
+    public List<NewsCard> findAll() {
+        session.beginTransaction();
+        List<NewsCard> newsCards = session
+                .createQuery("FROM NewsCard", NewsCard.class)
+                .getResultList();
+        session.getTransaction().commit();
+        return newsCards;
+    }
+
+    @Transactional(readOnly = true)
+    public List<NewsCard> findBunchOfLastLimited(int limit) {
+        session.beginTransaction();
+        Query<NewsCard> query = session.
+                createQuery("FROM NewsCard ORDER BY id DESC", NewsCard.class);
+        query.setMaxResults(limit);
+        List<NewsCard> newsCards = query.getResultList();
+        session.getTransaction().commit();
+        return newsCards;
+    }
+
+    @Transactional(readOnly = true)
+    public List<NewsCard> findByAuthorId(long authorId) {
+        session.beginTransaction();
+        Author author = session.get(Author.class, authorId);
+        session.getTransaction().commit();
+        return author.getNewsCards();
+    }
+
+    @Transactional(readOnly = true)
     public Optional<NewsCard> findById(long id) {
-        return jdbcTemplate.query("SELECT * FROM newscards WHERE id = ?",
-                        new BeanPropertyRowMapper<>(NewsCard.class),
-                        id)
-                .stream()
-                .findAny();
+        session.beginTransaction();
+        Optional<NewsCard> newsCard = Optional.of(session.get(NewsCard.class, id));
+        session.getTransaction().commit();
+        return newsCard;
     }
 }

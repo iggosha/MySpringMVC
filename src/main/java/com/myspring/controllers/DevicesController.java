@@ -2,7 +2,6 @@ package com.myspring.controllers;
 
 import com.myspring.models.Device;
 import com.myspring.repositories.DevicesRepository;
-import com.myspring.utils.DeviceValidator;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,13 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class DevicesController {
 
     private DevicesRepository devicesRepository;
-    private DeviceValidator deviceValidator;
 
     @PatchMapping({"/devices/{id}", "/devices/{id}/"})
     public String patchDevice(@PathVariable("id") long id,
                               @ModelAttribute("device") @Valid Device device,
                               BindingResult bindingResult) {
-        deviceValidator.validate(device, bindingResult);
         if (bindingResult.hasErrors()) {
             return "smart_home/item_device";
         }

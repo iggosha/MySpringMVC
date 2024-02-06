@@ -55,3 +55,8 @@ label {
     margin-bottom: 2vh;
 }
 
+form {
+    border: 1px solid #2ECC71;
+    border-radius: 1vh;
+    padding: 3vh 3vw;
+}

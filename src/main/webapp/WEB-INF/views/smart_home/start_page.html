@@ -15,7 +15,7 @@
                     <h3 th:text="${newscard.header}"></h3>
                     <p th:text="${newscard.content}" class="card-content"></p>
                     <p th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yy HH:mm')}"></p>
-                    <p th:text="${authorMap[newscard.authorId]}"></p>
+                    <p th:text="${authorMap[newscard.getAuthor().getId()]}"></p>
                     <a th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" class="card-button">Подробнее</a>
                 </div>
             </div>

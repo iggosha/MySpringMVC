@@ -19,7 +19,7 @@
             <td th:text="${newscard.header}"></td>
             <td th:text="${newscard.content}"></td>
             <td th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
-            <td th:text="${newscard.getAuthorId()}"></td>
+            <td th:text="${newscard.getAuthor().getId()}"></td>
             <td><a th:text="${authorObj.getFullName()}"
                    th:href="@{/smarthome/authors/{id}(id=${authorObj.getId()})}"></a></td>
         </tr>
@@ -48,11 +48,11 @@
             Введите дату публикации:
             <input type="datetime-local" th:field="*{creationDate}" step="any" required>
         </label>
-        <div style="color:red" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></div>
+        <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
         <label>
             Выберите автора:
-            <select th:field="*{authorId}">
-                <option th:each="author: ${authors}" th:value="${author.getId()}"
+            <select th:field="*{author.id}">
+                <option th:each="author: ${authors}" th:value="${author.id}"
                         th:text="${author.getFullName()}"></option>
             </select>
         </label>

@@ -1,10 +1,11 @@
 package com.myspring.repositories;
 
 import com.myspring.models.Author;
+import com.myspring.models.NewsCard;
 import lombok.AllArgsConstructor;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,45 +14,51 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthorsRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    private final Session session;
 
-
+    @Transactional
     public void save(Author author) {
-        jdbcTemplate.update("INSERT INTO authors(full_name) VALUES(?)",
-                author.getFullName()
-        );
+        session.beginTransaction();
+        session.persist(author);
+        session.getTransaction().commit();
     }
 
+    @Transactional
     public void updateById(long id, Author author) {
-        jdbcTemplate.update(
-                "UPDATE authors SET full_name = ? WHERE id = ?",
-                author.getFullName(),
-                id);
+        session.beginTransaction();
+        Author authorFromDb = session.get(Author.class, id);
+        authorFromDb.setFullName(author.getFullName());
+        session.getTransaction().commit();
     }
 
+    @Transactional
     public void deleteById(long id) {
-        jdbcTemplate.update("DELETE FROM authors WHERE id = ?",
-                id);
+        session.beginTransaction();
+        session.remove(session.get(Author.class, id));
+        session.getTransaction().commit();
     }
 
+    @Transactional(readOnly = true)
     public List<Author> findAll() {
-        return jdbcTemplate.query("SELECT * FROM authors",
-                new BeanPropertyRowMapper<>(Author.class));
+        session.beginTransaction();
+        List<Author> authors = session.createQuery("FROM Author", Author.class).getResultList();
+        session.getTransaction().commit();
+        return authors;
     }
 
+    @Transactional(readOnly = true)
     public Optional<Author> findByNewsCardId(long newsCardId) {
-        return jdbcTemplate.query("SELECT a.* FROM authors a JOIN newscards n ON a.id = n.author_id WHERE n.id = ?",
-                        new BeanPropertyRowMapper<>(Author.class),
-                        newsCardId)
-                .stream()
-                .findAny();
+        session.beginTransaction();
+        NewsCard newsCard = session.get(NewsCard.class, newsCardId);
+        session.getTransaction().commit();
+        return Optional.of(newsCard.getAuthor());
     }
 
+    @Transactional(readOnly = true)
     public Optional<Author> findById(long id) {
-        return jdbcTemplate.query("SELECT * FROM authors WHERE id = ?",
-                        new BeanPropertyRowMapper<>(Author.class),
-                        id)
-                .stream()
-                .findAny();
+        session.beginTransaction();
+        Author author = session.get(Author.class, id);
+        session.getTransaction().commit();
+        return Optional.of(author);
     }
 }
