@@ -26,6 +26,6 @@ public class Author {
     private String fullName;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<NewsCard> newsCards;
 }
