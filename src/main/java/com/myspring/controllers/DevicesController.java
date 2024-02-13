@@ -1,7 +1,7 @@
 package com.myspring.controllers;
 
 import com.myspring.models.Device;
-import com.myspring.repositories.DevicesRepository;
+import com.myspring.services.DevicesService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/smarthome")
 public class DevicesController {
 
-    private DevicesRepository devicesRepository;
+    private DevicesService devicesService;
 
     @PatchMapping({"/devices/{id}", "/devices/{id}/"})
     public String patchDevice(@PathVariable("id") long id,
@@ -23,27 +23,27 @@ public class DevicesController {
         if (bindingResult.hasErrors()) {
             return "smart_home/item_device";
         }
-        devicesRepository.updateById(id, device);
+        devicesService.updateById(id, device);
         return "redirect:/smarthome/devices/{id}";
     }
 
     @DeleteMapping({"/devices/{id}", "/devices/{id}/"})
     public String deleteDevice(@PathVariable("id") long id) {
-        devicesRepository.deleteById(id);
+        devicesService.deleteById(id);
         return "redirect:/smarthome/devices";
     }
 
 
     @GetMapping({"/devices", "/devices/"})
     public String getDevices(Model model) {
-        model.addAttribute("devices", devicesRepository.findAll());
+        model.addAttribute("devices", devicesService.findAll());
         return "smart_home/list_devices";
     }
 
 
     @GetMapping({"/devices/{id}", "/devices/{id}/"})
     public String getDevice(@PathVariable("id") long id, Model model) {
-        model.addAttribute("device", devicesRepository.findById(id).orElse(null));
+        model.addAttribute("device", devicesService.findById(id));
         return "smart_home/item_device";
     }
 }

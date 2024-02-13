@@ -1,8 +1,8 @@
 package com.myspring.controllers;
 
 import com.myspring.models.NewsCard;
-import com.myspring.repositories.AuthorsRepository;
-import com.myspring.repositories.NewsCardsRepository;
+import com.myspring.services.AuthorsService;
+import com.myspring.services.NewsCardsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,8 +18,8 @@ import java.util.Map;
 @RequestMapping("/smarthome")
 public class NewsCardsController {
 
-    private NewsCardsRepository newsCardsRepository;
-    private AuthorsRepository authorsRepository;
+    private NewsCardsService newsCardsService;
+    private AuthorsService authorsService;
 
     @PatchMapping({"/newscards/{id}", "/newscards/{id}/"})
     public String patchNewscard(@PathVariable("id") long id,
@@ -28,21 +28,21 @@ public class NewsCardsController {
         if (bindingResult.hasErrors()) {
             return "smart_home/item_newscard";
         }
-        newsCardsRepository.updateById(id, newsCard);
+        newsCardsService.updateById(id, newsCard);
         return "redirect:/smarthome/newscards/{id}";
     }
 
     @DeleteMapping({"/newscards/{id}", "/newscards/{id}/"})
     public String deleteNewscard(@PathVariable("id") long id) {
-        newsCardsRepository.deleteById(id);
+        newsCardsService.deleteById(id);
         return "redirect:/smarthome/newscards";
     }
 
     @GetMapping({"/newscards", "/newscards/"})
     public String getNewscards(Model model) {
-        model.addAttribute("newscards", newsCardsRepository.findAll());
+        model.addAttribute("newscards", newsCardsService.findAll());
         Map<Long, String> authorMap = new HashMap<>();
-        authorsRepository.findAll()
+        authorsService.findAll()
                 .forEach(author ->
                         authorMap.put(author.getId(), author.getFullName())
                 );
@@ -52,9 +52,9 @@ public class NewsCardsController {
 
     @GetMapping({"/newscards/{id}", "/newscards/{id}/"})
     public String getNewsCard(@PathVariable("id") long id, Model model) {
-        model.addAttribute("newscard", newsCardsRepository.findById(id).orElse(null));
-        model.addAttribute("authorObj", authorsRepository.findByNewsCardId(id).orElse(null));
-        model.addAttribute("authors", authorsRepository.findAll());
+        model.addAttribute("newscard", newsCardsService.findById(id));
+        model.addAttribute("authorObj", authorsService.findByNewsCardId(id));
+        model.addAttribute("authors", authorsService.findAll());
         return "smart_home/item_newscard";
     }
 }

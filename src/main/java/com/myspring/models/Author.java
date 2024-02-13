@@ -8,11 +8,9 @@ import lombok.ToString;
 
 import java.util.List;
 
-// Lombok
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-// Hibernate
 @Entity
 @Table(name = "authors")
 public class Author {

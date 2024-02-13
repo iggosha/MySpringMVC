@@ -1,8 +1,8 @@
 package com.myspring.controllers;
 
-import com.myspring.repositories.AuthorsRepository;
-import com.myspring.repositories.DevicesRepository;
-import com.myspring.repositories.NewsCardsRepository;
+import com.myspring.services.AuthorsService;
+import com.myspring.services.DevicesService;
+import com.myspring.services.NewsCardsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +17,16 @@ import java.util.Map;
 @RequestMapping("/smarthome")
 public class SmartHomeController {
 
-    private DevicesRepository devicesRepository;
-    private NewsCardsRepository newsCardsRepository;
-    private AuthorsRepository authorsRepository;
+    private DevicesService devicesService;
+    private NewsCardsService newsCardsService;
+    private AuthorsService authorsService;
 
     @GetMapping({"", "/"})
     public String getStart(Model model) {
-        model.addAttribute("devices", devicesRepository.findBunchOfLastLimited(4));
-        model.addAttribute("newscards", newsCardsRepository.findBunchOfLastLimited(4));
+        model.addAttribute("devices", devicesService.findMultipleNewest(4));
+        model.addAttribute("newscards", newsCardsService.findMultipleNewest(4));
         Map<Long, String> authorMap = new HashMap<>();
-        authorsRepository.findAll()
+        authorsService.findAll()
                 .forEach(author ->
                         authorMap.put(author.getId(), author.getFullName())
                 );

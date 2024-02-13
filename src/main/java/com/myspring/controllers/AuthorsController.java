@@ -1,8 +1,8 @@
 package com.myspring.controllers;
 
 import com.myspring.models.Author;
-import com.myspring.repositories.AuthorsRepository;
-import com.myspring.repositories.NewsCardsRepository;
+import com.myspring.services.AuthorsService;
+import com.myspring.services.NewsCardsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/smarthome")
 public class AuthorsController {
 
-    private NewsCardsRepository newsCardsRepository;
-    private AuthorsRepository authorsRepository;
+    private NewsCardsService newsCardsService;
+    private AuthorsService authorsService;
 
     @PatchMapping({"/authors/{id}", "/authors/{id}/"})
     public String patchAuthor(@PathVariable("id") long id,
@@ -25,26 +25,26 @@ public class AuthorsController {
         if (bindingResult.hasErrors()) {
             return "smart_home/item_author";
         }
-        authorsRepository.updateById(id, author);
+        authorsService.updateById(id, author);
         return "redirect:/smarthome/authors/{id}";
     }
 
     @DeleteMapping({"/authors/{id}", "/authors/{id}/"})
     public String deleteAuthor(@PathVariable("id") long id) {
-        authorsRepository.deleteById(id);
+        authorsService.deleteById(id);
         return "redirect:/smarthome/authors";
     }
 
     @GetMapping({"/authors", "/authors/"})
     public String getAuthors(Model model) {
-        model.addAttribute("authors", authorsRepository.findAll());
+        model.addAttribute("authors", authorsService.findAll());
         return "smart_home/list_authors";
     }
 
     @GetMapping({"/authors/{id}", "/authors/{id}/"})
     public String getAuthor(@PathVariable("id") long id, Model model) {
-        model.addAttribute("newscards", newsCardsRepository.findByAuthorId(id));
-        model.addAttribute("author", authorsRepository.findById(id).orElse(null));
+        model.addAttribute("newscards", newsCardsService.findByAuthorId(id));
+        model.addAttribute("author", authorsService.findById(id));
         return "smart_home/item_author";
     }
 }
