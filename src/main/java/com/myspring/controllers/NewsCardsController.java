@@ -22,7 +22,7 @@ public class NewsCardsController {
     private AuthorsService authorsService;
 
     @PatchMapping({"/newscards/{id}", "/newscards/{id}/"})
-    public String patchNewscard(@PathVariable("id") long id,
+    public String patchNewsCard(@PathVariable("id") long id,
                                 @ModelAttribute("newscard") @Valid NewsCard newsCard,
                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -32,14 +32,20 @@ public class NewsCardsController {
         return "redirect:/smarthome/newscards/{id}";
     }
 
+    @PatchMapping({"/manage/newscards/{id}/rating", "/manage/newscards/{id}/rating/"})
+    public String patchNewsCardRating(@PathVariable("id") long id, @RequestParam("ratingDifference") int ratingDifference) {
+        newsCardsService.updateRatingById(id, ratingDifference);
+        return "redirect:/smarthome/newscards/{id}";
+    }
+
     @DeleteMapping({"/newscards/{id}", "/newscards/{id}/"})
-    public String deleteNewscard(@PathVariable("id") long id) {
+    public String deleteNewsCard(@PathVariable("id") long id) {
         newsCardsService.deleteById(id);
         return "redirect:/smarthome/newscards";
     }
 
     @GetMapping({"/newscards", "/newscards/"})
-    public String getNewscards(Model model) {
+    public String getNewsCards(Model model) {
         model.addAttribute("newscards", newsCardsService.findAll());
         Map<Long, String> authorMap = new HashMap<>();
         authorsService.findAll()
@@ -52,7 +58,7 @@ public class NewsCardsController {
 
     @GetMapping({"/newscards/{id}", "/newscards/{id}/"})
     public String getNewsCard(@PathVariable("id") long id, Model model) {
-        model.addAttribute("newscard", newsCardsService.findById(id));
+        model.addAttribute("newscard", newsCardsService.findByIdNonOptional(id));
         model.addAttribute("authorObj", authorsService.findByNewsCardId(id));
         model.addAttribute("authors", authorsService.findAll());
         return "smart_home/item_newscard";

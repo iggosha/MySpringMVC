@@ -20,7 +20,7 @@ public class NewsCard {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Pattern(regexp = "^[A-ZА-Я][ -~а-яА-Я]{1,100}", message = "Заголовок новости должен начинаться с большой буквы и содержать 1-100 других символов")
     @Column(name = "header")
@@ -31,8 +31,12 @@ public class NewsCard {
     private String content;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
+
+    @Column(name = "rating_points")
+    private Integer ratingPoints;
 
     @ManyToOne
     @JoinColumn(name = "author_id")

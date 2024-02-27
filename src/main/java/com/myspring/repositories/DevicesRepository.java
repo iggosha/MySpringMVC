@@ -11,5 +11,4 @@ import org.springframework.stereotype.Repository;
 public interface DevicesRepository extends PagingAndSortingRepository<Device, Long>, JpaRepository<Device, Long> {
 
     Page<Device> findAllByOrderByIdDesc(Pageable pageable);
-//    List<Device> findAllByOrderByNameAsc();
 }

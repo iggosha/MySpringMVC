@@ -43,7 +43,7 @@ public class DevicesController {
 
     @GetMapping({"/devices/{id}", "/devices/{id}/"})
     public String getDevice(@PathVariable("id") long id, Model model) {
-        model.addAttribute("device", devicesService.findById(id));
+        model.addAttribute("device", devicesService.findByIdNonOptional(id));
         return "smart_home/item_device";
     }
 }

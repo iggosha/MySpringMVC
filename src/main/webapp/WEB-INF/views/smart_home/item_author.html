@@ -8,6 +8,7 @@
             <th>ID</th>
             <th>Имя</th>
             <th>Опубликованные новости</th>
+            <th>Рейтинг статей</th>
         </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
             <td th:text="${author.fullName}"></td>
             <td><a th:each="newscard: ${newscards}" th:text="${newscard.getHeader()}"
                    th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" style="display: block"></a></td>
+            <td th:text="${rating}"></td>
         </tr>
         </tbody>
     </table>

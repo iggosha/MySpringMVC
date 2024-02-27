@@ -60,3 +60,7 @@ form {
     border-radius: 1vh;
     padding: 3vh 3vw;
 }
+
+.hidden {
+    display: none;
+}

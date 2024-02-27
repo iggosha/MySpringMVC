@@ -1,9 +1,7 @@
 package com.myspring.services;
 
 
-import com.myspring.models.Author;
 import com.myspring.models.NewsCard;
-import com.myspring.repositories.AuthorsRepository;
 import com.myspring.repositories.NewsCardsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -13,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 
 @Service
@@ -22,21 +19,17 @@ import java.util.NoSuchElementException;
 public class NewsCardsService {
 
     private final NewsCardsRepository newsCardsRepository;
-    private final AuthorsRepository authorsRepository;
 
     public List<NewsCard> findAll() {
         return newsCardsRepository.findAll();
     }
 
-    public NewsCard findById(Long id) {
+    public NewsCard findByIdNonOptional(Long id) {
         return newsCardsRepository.findById(id).orElse(null);
     }
 
     public List<NewsCard> findByAuthorId(Long authorId) {
-        Author author = authorsRepository
-                .findById(authorId)
-                .orElseThrow(() -> new NoSuchElementException("No author with given id"));
-        return author.getNewsCards();
+        return newsCardsRepository.findAllByAuthor_Id(authorId);
     }
 
     public List<NewsCard> findMultipleNewest(Integer size) {
@@ -44,18 +37,22 @@ public class NewsCardsService {
         return newsCardsRepository.findAllByOrderByIdDesc(page).toList();
     }
 
-
     @Transactional
     public void save(NewsCard newsCard) {
         if (newsCard.getCreationDate() == null) {
             newsCard.setCreationDate(LocalDateTime.now());
         }
+        if (newsCard.getRatingPoints() == null) {
+            newsCard.setRatingPoints(0);
+        }
         newsCardsRepository.save(newsCard);
     }
 
     @Transactional
-    public void updateById(Long id, NewsCard newsCard) {
-        newsCard.setId(id);
+    public void updateRatingById(long id, int ratingDifference) {
+        NewsCard newsCard = findByIdNonOptional(id);
+        int ratingPoints = newsCard.getRatingPoints() + ratingDifference;
+        newsCard.setRatingPoints(ratingPoints);
         newsCardsRepository.save(newsCard);
     }
 
@@ -64,8 +61,13 @@ public class NewsCardsService {
         newsCardsRepository.deleteById(id);
     }
 
-//    @Transactional
-//    public void delete(NewsCard newsCard) {
-//        newsCardsRepository.delete(newsCard);
-//    }
+    @Transactional
+    public void updateById(Long id, NewsCard newsCard) {
+        updateNewsCardWithId(id, newsCard);
+    }
+
+    private void updateNewsCardWithId(Long id, NewsCard newsCard) {
+        newsCard.setId(id);
+        newsCardsRepository.save(newsCard);
+    }
 }

@@ -43,8 +43,10 @@ public class AuthorsController {
 
     @GetMapping({"/authors/{id}", "/authors/{id}/"})
     public String getAuthor(@PathVariable("id") long id, Model model) {
+        Author author = authorsService.findByIdNonOptional(id);
         model.addAttribute("newscards", newsCardsService.findByAuthorId(id));
-        model.addAttribute("author", authorsService.findById(id));
+        model.addAttribute("author", author);
+        model.addAttribute("rating", authorsService.getSummaryRatingById(author));
         return "smart_home/item_author";
     }
 }

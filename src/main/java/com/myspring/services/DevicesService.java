@@ -22,7 +22,7 @@ public class DevicesService {
         return devicesRepository.findAll();
     }
 
-    public Device findById(Long id) {
+    public Device findByIdNonOptional(Long id) {
         return devicesRepository.findById(id).orElse(null);
     }
 
@@ -46,9 +46,4 @@ public class DevicesService {
     public void deleteById(Long id) {
         devicesRepository.deleteById(id);
     }
-
-//    @Transactional
-//    public void delete(Device device) {
-//        devicesRepository.delete(device);
-//    }
 }
