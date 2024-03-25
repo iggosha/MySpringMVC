@@ -26,14 +26,14 @@
             <td>
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <form th:method="patch"
-                          th:action="@{/smarthome/manage/newscards/{id}/rating(id=${newscard.getId()})}"
+                          th:action="@{/smarthome/newscards/{id}/rating(id=${newscard.getId()})}"
                           style="border: 0; margin: 0; padding: 1vh 1vw">
                         <input type="number" name="ratingDifference" value="1" class="hidden"/>
                         <input type="submit" value="+" class="card-button">
                     </form>
                     <span th:text="${newscard.getRatingPoints()}"></span>
                     <form th:method="patch"
-                          th:action="@{/smarthome/manage/newscards/{id}/rating(id=${newscard.getId()})}"
+                          th:action="@{/smarthome/newscards/{id}/rating(id=${newscard.getId()})}"
                           style="border: 0; margin: 0; padding: 1vh 1vw">
                         <input type="number" name="ratingDifference" value="-1" class="hidden"/>
                         <input type="submit" value="-" class="card-button">

@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/smarthome")
+@RequestMapping("/smarthome/devices")
 public class DevicesController {
 
     private DevicesService devicesService;
 
-    @PatchMapping({"/devices/{id}", "/devices/{id}/"})
+    @PatchMapping({"/{id}", "/{id}/"})
     public String patchDevice(@PathVariable("id") long id,
                               @ModelAttribute("device") @Valid Device device,
                               BindingResult bindingResult) {
@@ -27,21 +27,21 @@ public class DevicesController {
         return "redirect:/smarthome/devices/{id}";
     }
 
-    @DeleteMapping({"/devices/{id}", "/devices/{id}/"})
+    @DeleteMapping({"/{id}", "/{id}/"})
     public String deleteDevice(@PathVariable("id") long id) {
         devicesService.deleteById(id);
         return "redirect:/smarthome/devices";
     }
 
 
-    @GetMapping({"/devices", "/devices/"})
+    @GetMapping({"", "/"})
     public String getDevices(Model model) {
         model.addAttribute("devices", devicesService.findAll());
         return "smart_home/list_devices";
     }
 
 
-    @GetMapping({"/devices/{id}", "/devices/{id}/"})
+    @GetMapping({"/{id}", "/{id}/"})
     public String getDevice(@PathVariable("id") long id, Model model) {
         model.addAttribute("device", devicesService.findByIdNonOptional(id));
         return "smart_home/item_device";

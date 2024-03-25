@@ -15,13 +15,13 @@ import java.util.Map;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/smarthome")
+@RequestMapping("/smarthome/newscards")
 public class NewsCardsController {
 
     private NewsCardsService newsCardsService;
     private AuthorsService authorsService;
 
-    @PatchMapping({"/newscards/{id}", "/newscards/{id}/"})
+    @PatchMapping({"/{id}", "/{id}/"})
     public String patchNewsCard(@PathVariable("id") long id,
                                 @ModelAttribute("newscard") @Valid NewsCard newsCard,
                                 BindingResult bindingResult) {
@@ -32,19 +32,19 @@ public class NewsCardsController {
         return "redirect:/smarthome/newscards/{id}";
     }
 
-    @PatchMapping({"/manage/newscards/{id}/rating", "/manage/newscards/{id}/rating/"})
+    @PatchMapping({"/{id}/rating", "/{id}/rating/"})
     public String patchNewsCardRating(@PathVariable("id") long id, @RequestParam("ratingDifference") int ratingDifference) {
         newsCardsService.updateRatingById(id, ratingDifference);
         return "redirect:/smarthome/newscards/{id}";
     }
 
-    @DeleteMapping({"/newscards/{id}", "/newscards/{id}/"})
+    @DeleteMapping({"/{id}", "/{id}/"})
     public String deleteNewsCard(@PathVariable("id") long id) {
         newsCardsService.deleteById(id);
         return "redirect:/smarthome/newscards";
     }
 
-    @GetMapping({"/newscards", "/newscards/"})
+    @GetMapping({"", "/"})
     public String getNewsCards(Model model) {
         model.addAttribute("newscards", newsCardsService.findAll());
         Map<Long, String> authorMap = new HashMap<>();
@@ -56,7 +56,7 @@ public class NewsCardsController {
         return "smart_home/list_newscards";
     }
 
-    @GetMapping({"/newscards/{id}", "/newscards/{id}/"})
+    @GetMapping({"/{id}", "/{id}/"})
     public String getNewsCard(@PathVariable("id") long id, Model model) {
         model.addAttribute("newscard", newsCardsService.findByIdNonOptional(id));
         model.addAttribute("authorObj", authorsService.findByNewsCardId(id));

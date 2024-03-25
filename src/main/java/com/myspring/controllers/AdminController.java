@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/smarthome")
+@RequestMapping("/smarthome/admin")
 public class AdminController {
 
     private static final String REDIRECT_ADMIN = "redirect:/smarthome/admin";
@@ -26,42 +26,42 @@ public class AdminController {
     private NewsCardsService newsCardsService;
     private AuthorsService authorsService;
 
-    @PostMapping({"/admin/manage/device", "/admin/manage/device/"})
+    @PostMapping({"/manage/device", "/manage/device/"})
     public String postDevice(@ModelAttribute("device") @Valid Device device) {
         devicesService.save(device);
         return REDIRECT_ADMIN;
     }
 
-    @PostMapping({"/admin/manage/newscard", "/admin/manage/newscard/"})
+    @PostMapping({"/manage/newscard", "/manage/newscard/"})
     public String postNewscard(@ModelAttribute("newscard") @Valid NewsCard newsCard) {
         newsCardsService.save(newsCard);
         return REDIRECT_ADMIN;
     }
 
-    @PostMapping({"/admin/manage/author", "/admin/manage/author/"})
+    @PostMapping({"/manage/author", "/manage/author/"})
     public String postAuthor(@ModelAttribute("author") Author author) {
         authorsService.save(author);
         return REDIRECT_ADMIN;
     }
 
-    @GetMapping({"/admin/manage/author", "/admin/manage/author"})
+    @GetMapping({"/manage/author", "/manage/author"})
     public String getManageAuthor(@ModelAttribute("author") Author author) {
         return "smart_home/manage_author";
     }
 
-    @GetMapping({"/admin/manage/newscard", "/admin/manage/newscard/"})
+    @GetMapping({"/manage/newscard", "/manage/newscard/"})
     public String getManageNewsCard(@ModelAttribute("newscard") NewsCard newsCard,
                                     Model model) {
         model.addAttribute("authors", authorsService.findAll());
         return "smart_home/manage_newscard";
     }
 
-    @GetMapping({"/admin/manage/device", "/admin/manage/device/"})
+    @GetMapping({"/manage/device", "/manage/device/"})
     public String getManageDevice(@ModelAttribute("device") Device device) {
         return "smart_home/manage_device";
     }
 
-    @GetMapping({"/admin", "/admin/"})
+    @GetMapping({"", "/"})
     public String getAdmin() {
         return "smart_home/admin";
     }
