@@ -3,6 +3,8 @@ package com.myspring.services;
 import com.myspring.models.Author;
 import com.myspring.repositories.AuthorsRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,10 @@ public class AuthorsService {
 
     public List<Author> findAll() {
         return authorsRepository.findAll();
+    }
+
+    public Page<Author> findAll(int pageNum) {
+        return authorsRepository.findAll(PageRequest.of(pageNum, 6));
     }
 
     public Author findByIdNonOptional(Long id) {

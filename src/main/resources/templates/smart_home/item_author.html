@@ -38,9 +38,6 @@
     <form th:method="delete" th:action="@{/smarthome/authors/{id}(id =${author.getId()})}">
         <input type="submit" value="Удалить автора" class="card-button">
     </form>
-    <footer>
-        <p>&copy; СмартДом, 2024</p>
-    </footer>
 </div>
-</body>
-</html>
+
+<div th:replace="~{/smart_home/footer}"></div>

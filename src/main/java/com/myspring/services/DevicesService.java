@@ -3,6 +3,7 @@ package com.myspring.services;
 import com.myspring.models.Device;
 import com.myspring.repositories.DevicesRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class DevicesService {
 
     public List<Device> findAll() {
         return devicesRepository.findAll();
+    }
+
+    public Page<Device> findAll(int pageNum) {
+        return devicesRepository.findAll(PageRequest.of(pageNum, 6));
     }
 
     public Device findByIdNonOptional(Long id) {

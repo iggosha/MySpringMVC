@@ -79,9 +79,6 @@
     <form th:method="delete" th:action="@{/smarthome/newscards/{id}(id =${newscard.getId()})}">
         <input type="submit" value="Удалить новость" class="card-button">
     </form>
-    <footer>
-        <p>&copy; СмартДом, 2024</p>
-    </footer>
 </div>
-</body>
-</html>
+
+<div th:replace="~{/smart_home/footer}"></div>

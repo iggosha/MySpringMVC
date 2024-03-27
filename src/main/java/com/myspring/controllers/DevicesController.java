@@ -35,8 +35,9 @@ public class DevicesController {
 
 
     @GetMapping({"", "/"})
-    public String getDevices(Model model) {
-        model.addAttribute("devices", devicesService.findAll());
+    public String getDevices(Model model,
+                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum) {
+        model.addAttribute("devices", devicesService.findAll(pageNum));
         return "smart_home/list_devices";
     }
 

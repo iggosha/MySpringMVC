@@ -12,7 +12,3 @@ th, td {
 th {
     font-weight: bold;
 }
-
-tr:hover {
-    background-color: #1F1F1F;
-}

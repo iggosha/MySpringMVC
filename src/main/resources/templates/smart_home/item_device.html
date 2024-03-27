@@ -48,9 +48,6 @@
     <form th:method="delete" th:action="@{/smarthome/devices/{id}(id =${device.getId()})}">
         <input type="submit" value="Удалить товар" class="card-button">
     </form>
-    <footer>
-        <p>&copy; СмартДом, 2024</p>
-    </footer>
 </div>
-</body>
-</html>
+
+<div th:replace="~{/smart_home/footer}"></div>

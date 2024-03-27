@@ -10,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Controller
 @AllArgsConstructor
 @RequestMapping("/smarthome/newscards")
@@ -45,14 +42,9 @@ public class NewsCardsController {
     }
 
     @GetMapping({"", "/"})
-    public String getNewsCards(Model model) {
-        model.addAttribute("newscards", newsCardsService.findAll());
-        Map<Long, String> authorMap = new HashMap<>();
-        authorsService.findAll()
-                .forEach(author ->
-                        authorMap.put(author.getId(), author.getFullName())
-                );
-        model.addAttribute("authorMap", authorMap);
+    public String getNewsCards(Model model,
+                               @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum) {
+        model.addAttribute("newscards", newsCardsService.findAll(pageNum));
         return "smart_home/list_newscards";
     }
 

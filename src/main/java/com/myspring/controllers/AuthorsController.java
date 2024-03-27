@@ -36,8 +36,9 @@ public class AuthorsController {
     }
 
     @GetMapping({"", "/"})
-    public String getAuthors(Model model) {
-        model.addAttribute("authors", authorsService.findAll());
+    public String getAuthors(Model model,
+                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum) {
+        model.addAttribute("authors", authorsService.findAll(pageNum));
         return "smart_home/list_authors";
     }
 

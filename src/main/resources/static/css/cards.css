@@ -10,6 +10,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    text-align: center;
 }
 
 .card-content {
@@ -24,4 +25,16 @@
     color: #F5F5F5;
     padding: 1vh;
     border-radius: 1vh;
+}
+
+.card-page-nav {
+    padding: 2vh;
+    margin: 1vh;
+    border: 1px solid #2ECC71;
+    border-radius: 1vh;
+    text-align: center;
+}
+
+.card-page-nav a {
+    margin: 2vh;
 }

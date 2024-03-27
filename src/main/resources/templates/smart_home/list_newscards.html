@@ -4,19 +4,29 @@
     <section>
         <h2>Новости блога</h2>
         <div class="card-container">
-            <div class="card" th:each="newscard : ${newscards}">
-                <h3 th:text="${newscard.header}"></h3>
-                <p th:text="${newscard.content}"></p>
+            <!--/*@thymesVar id="newscard" type="com.myspring.models.NewsCard"*/-->
+            <div class="card" th:each="newscard : ${newscards.content}">
+                <h3 th:text="*{newscard.header}"></h3>
+                <p th:text="*{newscard.content}"></p>
                 <p th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yy HH:mm')}"></p>
-                <p th:text="${authorMap[newscard.getAuthor().getId()]}"></p>
-                <p th:text="${newscard.ratingPoints}"></p>
+                <p th:text="${newscard.author.fullName}"></p>
+                Рейтинг: <p th:text="${newscard.ratingPoints}"></p>
                 <a th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" class="card-button">Подробнее</a>
             </div>
         </div>
     </section>
-    <footer>
-        <p>&copy; СмартДом, 2024</p>
-    </footer>
+    <section class="card-page-nav">
+        <a th:if="${newscards.hasPrevious()}"
+           th:href="@{/smarthome/newscards(pageNum=${newscards.number - 1})}"
+           class="card-button">
+            Назад
+        </a>
+        <a th:if="${newscards.hasNext()}"
+           th:href="@{/smarthome/newscards(pageNum=${newscards.number + 1})}"
+           class="card-button">
+            Вперед
+        </a>
+    </section>
 </div>
-</body>
-</html>
+
+<div th:replace="~{/smart_home/footer}"></div>

@@ -4,6 +4,7 @@ package com.myspring.services;
 import com.myspring.models.NewsCard;
 import com.myspring.repositories.NewsCardsRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,10 @@ public class NewsCardsService {
 
     public List<NewsCard> findAll() {
         return newsCardsRepository.findAll();
+    }
+
+    public Page<NewsCard> findAll(int pageNum) {
+        return newsCardsRepository.findAll(PageRequest.of(pageNum, 6));
     }
 
     public NewsCard findByIdNonOptional(Long id) {
