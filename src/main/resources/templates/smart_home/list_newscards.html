@@ -6,10 +6,10 @@
         <div class="card-container">
             <!--/*@thymesVar id="newscard" type="com.myspring.models.NewsCard"*/-->
             <div class="card" th:each="newscard : ${newscards.content}">
-                <h3 th:text="*{newscard.header}"></h3>
+                <h3 th:text="${newscard.header}"></h3>
                 <p th:text="*{newscard.content}"></p>
                 <p th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yy HH:mm')}"></p>
-                <p th:text="${newscard.author.fullName}"></p>
+                <p th:text="*{newscard.author.fullName}"></p>
                 Рейтинг: <p th:text="${newscard.ratingPoints}"></p>
                 <a th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" class="card-button">Подробнее</a>
             </div>

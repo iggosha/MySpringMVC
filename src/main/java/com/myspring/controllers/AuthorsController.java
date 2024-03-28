@@ -2,7 +2,6 @@ package com.myspring.controllers;
 
 import com.myspring.models.Author;
 import com.myspring.services.AuthorsService;
-import com.myspring.services.NewsCardsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/smarthome/authors")
 public class AuthorsController {
 
-    private NewsCardsService newsCardsService;
     private AuthorsService authorsService;
 
     @PatchMapping({"/{id}", "/{id}/"})
@@ -37,15 +35,15 @@ public class AuthorsController {
 
     @GetMapping({"", "/"})
     public String getAuthors(Model model,
-                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum) {
-        model.addAttribute("authors", authorsService.findAll(pageNum));
+                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
+                             @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
+        model.addAttribute("authors", authorsService.findAll(pageNum, pageSize));
         return "smart_home/list_authors";
     }
 
     @GetMapping({"/{id}", "/{id}/"})
     public String getAuthor(@PathVariable("id") long id, Model model) {
-        Author author = authorsService.findByIdNonOptional(id);
-        model.addAttribute("newscards", newsCardsService.findByAuthorId(id));
+        Author author = authorsService.getByIdWithItems(id);
         model.addAttribute("author", author);
         model.addAttribute("rating", authorsService.getSummaryRatingById(author));
         return "smart_home/item_author";

@@ -36,15 +36,16 @@ public class DevicesController {
 
     @GetMapping({"", "/"})
     public String getDevices(Model model,
-                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum) {
-        model.addAttribute("devices", devicesService.findAll(pageNum));
+                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
+                             @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
+        model.addAttribute("devices", devicesService.findAll(pageNum, pageSize));
         return "smart_home/list_devices";
     }
 
 
     @GetMapping({"/{id}", "/{id}/"})
     public String getDevice(@PathVariable("id") long id, Model model) {
-        model.addAttribute("device", devicesService.findByIdNonOptional(id));
+        model.addAttribute("device", devicesService.getById(id));
         return "smart_home/item_device";
     }
 }

@@ -16,24 +16,24 @@
         </thead>
         <tbody>
         <tr th:if="${newscard}">
-            <td th:text="${newscard.id}"></td>
-            <td th:text="${newscard.header}"></td>
-            <td th:text="${newscard.content}"></td>
-            <td th:text="${#temporals.format(newscard.creationDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
-            <td th:text="${newscard.getAuthor().getId()}"></td>
-            <td><a th:text="${authorObj.getFullName()}"
-                   th:href="@{/smarthome/authors/{id}(id=${authorObj.getId()})}"></a></td>
+            <td th:text="*{newscard.id}"></td>
+            <td th:text="*{newscard.header}"></td>
+            <td th:text="*{newscard.content}"></td>
+            <td th:text="*{#temporals.format(newscard.creationDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
+            <td th:text="*{newscard.author.id}"></td>
+            <td><a th:text="*{newscard.author.fullName}"
+                   th:href="@{/smarthome/authors/{id}(id=*{newscard.author.id})}"></a></td>
             <td>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div class="center-flex">
                     <form th:method="patch"
-                          th:action="@{/smarthome/newscards/{id}/rating(id=${newscard.getId()})}"
+                          th:action="@{/smarthome/newscards/{id}/rating(id=*{newscard.id})}"
                           style="border: 0; margin: 0; padding: 1vh 1vw">
                         <input type="number" name="ratingDifference" value="1" class="hidden"/>
                         <input type="submit" value="+" class="card-button">
                     </form>
-                    <span th:text="${newscard.getRatingPoints()}"></span>
+                    <span th:text="*{newscard.ratingPoints}"></span>
                     <form th:method="patch"
-                          th:action="@{/smarthome/newscards/{id}/rating(id=${newscard.getId()})}"
+                          th:action="@{/smarthome/newscards/{id}/rating(id=*{newscard.id})}"
                           style="border: 0; margin: 0; padding: 1vh 1vw">
                         <input type="number" name="ratingDifference" value="-1" class="hidden"/>
                         <input type="submit" value="-" class="card-button">
@@ -46,10 +46,10 @@
 
     <br>
     <br>
-    <form th:method="patch" th:action="@{/smarthome/newscards/{id}(id =${newscard.getId()})}" th:object="${newscard}">
+    <form th:method="patch" th:action="@{/smarthome/newscards/{id}(id=*{id})}" th:object="${newscard}">
         Изменение новости
         <br>
-        <p th:text="${newscard.id}">
+        <p th:text="*{id}">
         </p>
         <div style="color:red" th:if="${#fields.hasErrors('header')}" th:errors="*{header}"></div>
         <label>
@@ -70,13 +70,13 @@
         <label>
             Выберите автора:
             <select th:field="*{author.id}">
-                <option th:each="author: ${authors}" th:value="${author.id}"
-                        th:text="${author.getFullName()}"></option>
+                <option th:each="author: ${authors}" th:value="*{author.id}"
+                        th:text="*{author.fullName}"></option>
             </select>
         </label>
         <input type="submit" value="Изменить новость" class="card-button">
     </form>
-    <form th:method="delete" th:action="@{/smarthome/newscards/{id}(id =${newscard.getId()})}">
+    <form th:method="delete" th:action="@{/smarthome/newscards/{id}(id =*{newscard.id})}">
         <input type="submit" value="Удалить новость" class="card-button">
     </form>
 </div>

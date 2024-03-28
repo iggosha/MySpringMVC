@@ -43,15 +43,16 @@ public class NewsCardsController {
 
     @GetMapping({"", "/"})
     public String getNewsCards(Model model,
-                               @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum) {
-        model.addAttribute("newscards", newsCardsService.findAll(pageNum));
+                               @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
+                               @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize
+    ) {
+        model.addAttribute("newscards", newsCardsService.findAll(pageNum, pageSize));
         return "smart_home/list_newscards";
     }
 
     @GetMapping({"/{id}", "/{id}/"})
     public String getNewsCard(@PathVariable("id") long id, Model model) {
-        model.addAttribute("newscard", newsCardsService.findByIdNonOptional(id));
-        model.addAttribute("authorObj", authorsService.findByNewsCardId(id));
+        model.addAttribute("newscard", newsCardsService.getById(id));
         model.addAttribute("authors", authorsService.findAll());
         return "smart_home/item_newscard";
     }

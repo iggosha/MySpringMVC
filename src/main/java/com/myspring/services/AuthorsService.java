@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -22,18 +21,16 @@ public class AuthorsService {
         return authorsRepository.findAll();
     }
 
-    public Page<Author> findAll(int pageNum) {
-        return authorsRepository.findAll(PageRequest.of(pageNum, 6));
+    public Page<Author> findAll(int pageNum, int pageSize) {
+        return authorsRepository.findAll(PageRequest.of(pageNum, pageSize));
     }
 
-    public Author findByIdNonOptional(Long id) {
+    public Author getById(Long id) {
         return authorsRepository.findById(id).orElse(null);
     }
 
-    public Author findByNewsCardId(Long newsCardId) {
-        return authorsRepository
-                .findAuthorByNewsCardId(newsCardId)
-                .orElseThrow(() -> new NoSuchElementException("No newscard with given id"));
+    public Author getByIdWithItems(Long id) {
+        return authorsRepository.findByIdWithItems(id).orElse(null);
     }
 
     public Integer getSummaryRatingById(Author author) {

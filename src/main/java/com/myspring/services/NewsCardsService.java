@@ -25,16 +25,12 @@ public class NewsCardsService {
         return newsCardsRepository.findAll();
     }
 
-    public Page<NewsCard> findAll(int pageNum) {
-        return newsCardsRepository.findAll(PageRequest.of(pageNum, 6));
+    public Page<NewsCard> findAll(int pageNum, int pageSize) {
+        return newsCardsRepository.findAll(PageRequest.of(pageNum, pageSize));
     }
 
-    public NewsCard findByIdNonOptional(Long id) {
+    public NewsCard getById(Long id) {
         return newsCardsRepository.findById(id).orElse(null);
-    }
-
-    public List<NewsCard> findByAuthorId(Long authorId) {
-        return newsCardsRepository.findAllByAuthor_Id(authorId);
     }
 
     public List<NewsCard> findMultipleNewest(Integer size) {
@@ -55,7 +51,7 @@ public class NewsCardsService {
 
     @Transactional
     public void updateRatingById(long id, int ratingDifference) {
-        NewsCard newsCard = findByIdNonOptional(id);
+        NewsCard newsCard = getById(id);
         int ratingPoints = newsCard.getRatingPoints() + ratingDifference;
         newsCard.setRatingPoints(ratingPoints);
         newsCardsRepository.save(newsCard);

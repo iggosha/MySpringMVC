@@ -23,11 +23,11 @@ public class DevicesService {
         return devicesRepository.findAll();
     }
 
-    public Page<Device> findAll(int pageNum) {
-        return devicesRepository.findAll(PageRequest.of(pageNum, 6));
+    public Page<Device> findAll(int pageNum, int pageSize) {
+        return devicesRepository.findAll(PageRequest.of(pageNum, pageSize));
     }
 
-    public Device findByIdNonOptional(Long id) {
+    public Device getById(Long id) {
         return devicesRepository.findById(id).orElse(null);
     }
 

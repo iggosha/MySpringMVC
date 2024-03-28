@@ -15,7 +15,7 @@
         <tr th:if="${author}">
             <td th:text="${author.id}"></td>
             <td th:text="${author.fullName}"></td>
-            <td><a th:each="newscard: ${newscards}" th:text="${newscard.getHeader()}"
+            <td><a th:each="newscard: ${author.newsCards}" th:text="${newscard.getHeader()}"
                    th:href="@{/smarthome/newscards/{id}(id=${newscard.getId()})}" style="display: block"></a></td>
             <td th:text="${rating}"></td>
         </tr>
