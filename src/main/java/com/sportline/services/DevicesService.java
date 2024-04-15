@@ -1,7 +1,7 @@
-package com.myspring.services;
+package com.sportline.services;
 
-import com.myspring.models.Device;
-import com.myspring.repositories.DevicesRepository;
+import com.sportline.models.Device;
+import com.sportline.repositories.DevicesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

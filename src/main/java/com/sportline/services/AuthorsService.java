@@ -1,7 +1,7 @@
-package com.myspring.services;
+package com.sportline.services;
 
-import com.myspring.models.Author;
-import com.myspring.repositories.AuthorsRepository;
+import com.sportline.models.Author;
+import com.sportline.repositories.AuthorsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

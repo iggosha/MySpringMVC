@@ -1,8 +1,8 @@
-package com.myspring.controllers;
+package com.sportline.controllers;
 
-import com.myspring.models.NewsCard;
-import com.myspring.services.AuthorsService;
-import com.myspring.services.NewsCardsService;
+import com.sportline.models.NewsCard;
+import com.sportline.services.AuthorsService;
+import com.sportline.services.NewsCardsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

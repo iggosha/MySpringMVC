@@ -1,7 +1,7 @@
-package com.myspring.controllers;
+package com.sportline.controllers;
 
-import com.myspring.models.Device;
-import com.myspring.services.DevicesService;
+import com.sportline.models.Device;
+import com.sportline.services.DevicesService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,5 @@
 .card {
-    border: 1px solid #2ECC71;
+    border: 1px solid var(--accent-color);
     border-radius: 1vh;
     padding: 2vh;
     margin: 1vh;
@@ -21,16 +21,18 @@
 }
 
 .card-button {
-    background-color: #2ECC71;
-    color: #F5F5F5;
+    background-color: var(--accent-color);
+    color: var(--m-light-color);
     padding: 1vh;
+    border: 0;
     border-radius: 1vh;
+    cursor: pointer;
 }
 
 .card-page-nav {
     padding: 2vh;
     margin: 1vh;
-    border: 1px solid #2ECC71;
+    border: 1px solid var(--accent-color);
     border-radius: 1vh;
     text-align: center;
 }

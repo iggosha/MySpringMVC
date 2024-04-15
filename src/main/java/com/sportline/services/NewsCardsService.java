@@ -1,8 +1,8 @@
-package com.myspring.services;
+package com.sportline.services;
 
 
-import com.myspring.models.NewsCard;
-import com.myspring.repositories.NewsCardsRepository;
+import com.sportline.models.NewsCard;
+import com.sportline.repositories.NewsCardsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

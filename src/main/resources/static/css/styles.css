@@ -1,9 +1,18 @@
+:root {
+    --accent-color: #ff4b32;
+    --secondary-color: #324bff;
+    --m-light-color: #F5F5F5;
+    --light-color: #FFFFFF;
+    --dark-color: #1C1C1C;
+    --m-dark-color: #1F1F1F;
+}
+
 header {
     display: flex;
     justify-content: center;
     justify-items: center;
     padding-bottom: 2vh;
-    border-bottom: 1px solid #2ECC71;
+    border-bottom: 1px solid var(--secondary-color);
 }
 
 h1 {
@@ -20,7 +29,7 @@ label {
 }
 
 form {
-    border: 1px solid #2ECC71;
+    border: 1px solid var(--accent-color);
     border-radius: 1vh;
     padding: 3vh 3vw;
 }

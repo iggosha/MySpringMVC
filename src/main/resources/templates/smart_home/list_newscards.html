@@ -4,7 +4,7 @@
     <section>
         <h2>Новости блога</h2>
         <div class="card-container">
-            <!--/*@thymesVar id="newscard" type="com.myspring.models.NewsCard"*/-->
+            <!--/*@thymesVar id="newscard" type="com.sportline.models.NewsCard"*/-->
             <div class="card" th:each="newscard : ${newscards.content}">
                 <h3 th:text="${newscard.header}"></h3>
                 <p th:text="*{newscard.content}"></p>

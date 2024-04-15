@@ -1,8 +1,8 @@
-package com.myspring.controllers;
+package com.sportline.controllers;
 
-import com.myspring.services.AuthorsService;
-import com.myspring.services.DevicesService;
-import com.myspring.services.NewsCardsService;
+import com.sportline.services.AuthorsService;
+import com.sportline.services.DevicesService;
+import com.sportline.services.NewsCardsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

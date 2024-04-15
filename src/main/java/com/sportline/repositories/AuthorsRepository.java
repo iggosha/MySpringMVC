@@ -1,6 +1,6 @@
-package com.myspring.repositories;
+package com.sportline.repositories;
 
-import com.myspring.models.Author;
+import com.sportline.models.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;

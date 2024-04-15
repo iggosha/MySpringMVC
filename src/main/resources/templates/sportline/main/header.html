@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru" xml:lang="en">
+<head>
+    <title>СпортЛайн</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/dark-theme.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/light-theme.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/tables.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/cards.css}" type="text/css">
+    <link rel="icon" th:href="@{/img/logo.png}" type="image/png" sizes="64x64">
+</head>
+<body>
+<header>
+    <div>
+        <img th:src="@{/img/logo.png}" alt="Логотип">
+        <a th:href="@{/sportline}">СпортЛайн</a>
+        <a th:href="@{/sportline/products}">Товары</a>
+        <a th:href="@{/sportline/blog}">Блог и Новости</a>
+        <a th:href="@{/sportline/offers}">Спецпредложения</a>
+    </div>
+</header>
+<div class="container">
+    <!-- Начало основного содержания страницы сайта-->

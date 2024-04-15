@@ -1,11 +1,11 @@
-package com.myspring.controllers;
+package com.sportline.controllers;
 
-import com.myspring.models.Author;
-import com.myspring.models.Device;
-import com.myspring.models.NewsCard;
-import com.myspring.services.AuthorsService;
-import com.myspring.services.DevicesService;
-import com.myspring.services.NewsCardsService;
+import com.sportline.models.Author;
+import com.sportline.models.Device;
+import com.sportline.models.NewsCard;
+import com.sportline.services.AuthorsService;
+import com.sportline.services.DevicesService;
+import com.sportline.services.NewsCardsService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

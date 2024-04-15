@@ -1,16 +1,16 @@
 @media (prefers-color-scheme: dark) {
     body {
         font-family: 'Consolas L', sans-serif;
-        color: #F5F5F5;
+        color: var(--m-light-color);
         font-size: 2vh;
-        background-color: #1C1C1C;
+        background-color: var(--dark-color);
     }
 
     .container, footer {
         width: 50vw;
         margin: 0 auto;
         padding: 2vw;
-        background-color: #1F1F1F;
+        background-color: var(--m-dark-color);
     }
 
     footer {
@@ -19,25 +19,25 @@
     }
 
     a {
-        color: #2ECC71;
+        color: var(--secondary-color);
         text-decoration: none;
     }
 
     a:hover {
-        color: #FFF;
-        background-color: #2ECC71;
+        color: var(--light-color);
+        background-color: var(--secondary-color);
         text-decoration: none;
     }
 
     a:active {
-        color: #2ECC71;
-        background-color: #1F1F1F;
+        color: var(--secondary-color);
+        background-color: var(--dark-color);
         text-decoration: none;
     }
 
     header a {
         padding: 0 5vw;
         font-size: 4vh;
-        background-color: #1C1C1C;
+        background-color: var(--m-dark-color);
     }
 }

@@ -4,7 +4,7 @@
     <section>
         <h2>Наши товары</h2>
         <div class="card-container">
-            <!--/*@thymesVar id="device" type="com.myspring.models.Device"*/-->
+            <!--/*@thymesVar id="device" type="com.sportline.models.Device"*/-->
             <div class="card" th:each="device : ${devices.content}">
                 <h3 th:text="${device.name}"></h3>
                 <span th:text="${device.price}"></span>$
