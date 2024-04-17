@@ -1,6 +1,5 @@
 package com.sportline.controller;
 
-
 import com.sportline.model.entity.BlogPost;
 import com.sportline.service.BlogService;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class BlogController {
     private BlogService blogService;
 
     @PostMapping("")
-    public String postDevice(@ModelAttribute("blogPost") BlogPost blogPost) {
+    public String postBlogPost(@ModelAttribute("blogPost") BlogPost blogPost) {
         blogService.create(blogPost);
         return REDIRECT_LIST;
     }
@@ -47,7 +46,7 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public String getDevice(Model model,
+    public String getBlogPost(Model model,
                             @PathVariable("id") long id) {
         model.addAttribute("blogPostItem", blogService.getById(id));
         return "sportline/blog/item";

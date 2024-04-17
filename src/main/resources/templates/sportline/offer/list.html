@@ -1,0 +1,51 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<section>
+    <form th:method="post" th:action="@{/sportline/offers}" th:object="${offer}">
+        <h1>Добавить специальное предложение</h1>
+
+        <label for="heading">Название:</label>
+        <input type="text" id="heading" th:field="*{name}" required>
+
+        <label for="content">Описание:</label>
+        <textarea id="content" th:field="*{description}" rows="5" required></textarea>
+
+        <label for="date_start">Дата начала действия:</label>
+        <input type="date" id="date_start" th:field="*{startDate}" required>
+
+        <label for="date_end">Дата окончания действия:</label>
+        <input type="date" id="date_end" th:field="*{endDate}" required>
+
+        <br>
+
+        <input type="submit"
+               class="card-button"
+               value="Добавить"/>
+    </form>
+    <br>
+    <h1 class="light-rounded">Спецпредложения в SportLine</h1>
+    <div class="card-container">
+        <div class="card" th:each="offerItem : ${offersList}">
+            <h3 th:text="${offerItem.name}"></h3>
+            <p th:text="${offerItem.description}"></p>
+            <p th:text="${#temporals.format(offerItem.startDate, 'dd/MM/yyyy')}"></p>
+            <p th:text="${#temporals.format(offerItem.endDate, 'dd/MM/yyyy')}"></p>
+            <a th:href="@{/sportline/offers/{id}(id=*{offerItem.id})}" class="card-button">Перейти</a>
+        </div>
+    </div>
+</section>
+
+<section class="card-page-nav light-rounded">
+    <a th:if="${offersPage.hasPrevious()}"
+       th:href="@{/sportline/offers(pageNum=${offersPage.number - 1})}"
+       class="card-button">
+        < Предыдущая страница
+    </a>
+    <a th:if="${offersPage.hasNext()}"
+       th:href="@{/sportline/offers(pageNum=${offersPage.number + 1})}"
+       class="card-button">
+        Следующая страница >
+    </a>
+</section>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>
