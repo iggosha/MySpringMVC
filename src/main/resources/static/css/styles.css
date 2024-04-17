@@ -1,10 +1,10 @@
 :root {
-    --accent-color: #ff4b32;
-    --secondary-color: #324bff;
+    --accent-color: #324bff;
+    --secondary-color: #ff4b32;
     --m-light-color: #F5F5F5;
     --light-color: #FFFFFF;
-    --dark-color: #1C1C1C;
-    --m-dark-color: #1F1F1F;
+    --dark-color: #000000;
+    --m-dark-color: #202020;
 }
 
 header {
@@ -12,15 +12,18 @@ header {
     justify-content: center;
     justify-items: center;
     padding-bottom: 2vh;
-    border-bottom: 1px solid var(--secondary-color);
+    /*border-bottom: 1px solid var(--secondary-color);*/
 }
 
 h1 {
+    border: 1px solid var(--dark-color);
+    border-radius: 1vh;
+    text-align: center;
     font-size: 4vh;
 }
 
 header img {
-    height: 6vh;
+    height: 4vh;
 }
 
 label {

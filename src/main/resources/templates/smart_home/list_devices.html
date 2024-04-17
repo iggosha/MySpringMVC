@@ -13,6 +13,7 @@
             </div>
         </div>
     </section>
+
     <section class="card-page-nav">
         <a th:if="${devices.hasPrevious()}"
            th:href="@{/smarthome/devices(pageNum=${devices.number - 1})}"

@@ -1,0 +1,13 @@
+<div th:replace="~{/header.html}"></div>
+
+<div class="card-container">
+    <div class="card">
+        <!--/*@thymesVar id="exc" type="com.sportline.exc.CustomNotFoundException"*/-->
+        <span th:text="*{exc.message}"></span>
+        <a th:href="@{/sportline}" class="card-button">
+            Вернуться на главную
+        </a>
+    </div>
+</div>
+
+<div th:replace="~{/footer.html}"></div>

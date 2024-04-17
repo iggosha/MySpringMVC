@@ -1,5 +1,28 @@
-<div th:replace="~{/sportline/main/header.html}"></div>
+<div th:replace="~{/sportline/basic/header.html}"></div>
 
-Добро пожаловать
+<section>
+    <h1>Наш блог</h1>
+    <div class="card-container">
+        <div class="card" th:each="blogPost : ${blogPostList}">
+            <h3 th:text="${blogPost.heading}"></h3>
+            <p th:text="${blogPost.content}"></p>
+            <p th:text="${#temporals.format(blogPost.publicationDate, 'dd.MM.yyyy HH:mm:ss')}"></p>
+            <a th:href="@{/sportline/blog/{id}(id=*{blogPost.id})}" class="card-button">Подробнее</a>
+        </div>
+    </div>
+</section>
 
-<div th:replace="~{/sportline/main/footer.html}"></div>
+<!--<section class="card-page-nav">-->
+<!--    <a th:if="${blogPostList.hasPrevious()}"-->
+<!--       th:href="@{/smarthome/devices(pageNum=${devices.number - 1})}"-->
+<!--       class="card-button">-->
+<!--        Назад-->
+<!--    </a>-->
+<!--    <a th:if="${devices.hasNext()}"-->
+<!--       th:href="@{/smarthome/devices(pageNum=${devices.number + 1})}"-->
+<!--       class="card-button">-->
+<!--        Вперед-->
+<!--    </a>-->
+<!--</section>-->
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>
