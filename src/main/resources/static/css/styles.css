@@ -3,21 +3,20 @@
     --secondary-color: #ff4b32;
     --m-light-color: #F5F5F5;
     --light-color: #FFFFFF;
-    --dark-color: #000000;
+    --dark-color: #141414;
     --m-dark-color: #202020;
+    --m-dark-border: #303030;
 }
 
 header {
     display: flex;
+    background-color: var(--m-dark-color);
     justify-content: center;
-    justify-items: center;
-    padding-bottom: 2vh;
-    /*border-bottom: 1px solid var(--secondary-color);*/
+    margin-bottom: 2vh;
 }
 
 h1 {
-    border: 1px solid var(--dark-color);
-    border-radius: 1vh;
+    margin-top: 0;
     text-align: center;
     font-size: 4vh;
 }
@@ -44,7 +43,7 @@ form {
 .center-flex {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 

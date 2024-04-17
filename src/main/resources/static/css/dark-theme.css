@@ -6,16 +6,43 @@
         background-color: var(--dark-color);
     }
 
-    .container, footer {
+    textarea, input[type=text] {
+        font-family: 'Consolas L', sans-serif;
+        font-size: 2vh;
+        width: 25vw;
+        border: 1px solid var(--accent-color);
+        border-radius: 0;
+    }
+
+    header a {
+        padding: 0 5vw;
+        font-size: 4vh;
+        background-color: var(--m-dark-border);
+        border: 1px solid var(--m-dark-border);
+        border-radius: 1vh;
+    }
+
+    header {
+        border: 1px solid var(--m-dark-border);
+    }
+
+    .container {
         width: 50vw;
         margin: 0 auto;
         padding: 2vw;
         border-radius: 1vh;
+    }
+
+    .light-rounded {
+        border: 1px solid var(--m-dark-border);
         background-color: var(--m-dark-color);
+        border-radius: 1vh;
     }
 
     footer {
-        margin-top: 1vh;
+        border: 1px solid var(--m-dark-border);
+        background-color: var(--m-dark-color);
+        margin-top: 2vh;
         text-align: center;
     }
 
@@ -34,12 +61,5 @@
         color: var(--secondary-color);
         background-color: var(--dark-color);
         text-decoration: none;
-    }
-
-    header a, footer a {
-        padding: 0 5vw;
-        font-size: 4vh;
-        background-color: var(--m-dark-color);
-        border-radius: 1vh;
     }
 }

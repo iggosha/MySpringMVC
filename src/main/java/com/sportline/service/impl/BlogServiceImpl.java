@@ -20,6 +20,7 @@ public class BlogServiceImpl implements BlogService {
 
     private final BlogRepository blogRepository;
 
+    @Transactional
     @Override
     public void create(BlogPost blogPost) {
         blogPost.setPublicationDate(LocalDateTime.now());
@@ -43,13 +44,16 @@ public class BlogServiceImpl implements BlogService {
                 .orElseThrow(() -> new CustomNotFoundException("Запись в блоге", id));
     }
 
+    @Transactional
     @Override
     public void updateById(BlogPost blogPost, long id) {
-        blogPost.setId(id);
-        blogPost.setContent(blogPost.getContent() + "\nИзменено: " + LocalDateTime.now());
-        blogRepository.save(blogPost);
+        BlogPost blogPostBefore = getById(id);
+        blogPostBefore.setHeading(blogPost.getHeading());
+        blogPostBefore.setContent(blogPost.getContent());
+        blogRepository.save(blogPostBefore);
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         blogRepository.deleteById(id);

@@ -39,10 +39,10 @@ public class BlogController {
 
     @GetMapping("")
     public String getBlogPosts(Model model,
+                               @ModelAttribute("blogPost") BlogPost blogPost,
                                @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
                                @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
-//        model.addAttribute("devices", blogService.findAllByPage(pageNum, pageSize));
-        model.addAttribute("blogPostList", blogService.findAll());
+        model.addAttribute("blogPostsPage", blogService.findAllByPage(pageNum, pageSize));
         return "sportline/blog/list";
     }
 
