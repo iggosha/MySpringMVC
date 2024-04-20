@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "brands")
+public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,14 +20,12 @@ public class Product {
 
     private String name;
 
+    private String country;
+
     private String description;
 
-    private Double price;
+    private Double website;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+    @OneToMany(mappedBy = "brand")
+    private List<Product> products;
 }
