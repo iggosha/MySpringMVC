@@ -42,6 +42,7 @@ public class BlogController {
                                @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
                                @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
         model.addAttribute("blogPostsPage", blogService.findAllByPage(pageNum, pageSize));
+        model.addAttribute("blogPostsList", blogService.findAllByPage(pageNum, pageSize).getContent());
         return "sportline/blog/list";
     }
 

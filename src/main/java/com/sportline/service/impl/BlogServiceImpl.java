@@ -7,6 +7,7 @@ import com.sportline.service.BlogService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +35,10 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<BlogPost> findAllByPage(int pageNum, int pageSize) {
-        return blogRepository.findAll(PageRequest.of(pageNum, pageSize));
+        return blogRepository.findAll(
+                PageRequest.of(pageNum, pageSize,
+                        Sort.by(Sort.Direction.DESC, "publicationDate")
+                ));
     }
 
     @Override

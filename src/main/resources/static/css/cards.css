@@ -3,7 +3,12 @@
     border-radius: 1vh;
     padding: 2vh;
     margin: 1vh;
-    width: 15vw;
+    width: 20vw;
+}
+
+.card img {
+    height: 24vh;
+    border-radius: 1vh;
 }
 
 .card-container {
@@ -17,10 +22,18 @@
     background-color: var(--secondary-color);
     color: var(--m-light-color);
     padding: 1vh;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     font-size: 2vh;
     border: 0;
     border-radius: 1vh;
     cursor: pointer;
+}
+
+.card-button:hover {
+    color: var(--light-color);
+    background-color: var(--accent-color);
+    text-decoration: none;
 }
 
 .card-page-nav {

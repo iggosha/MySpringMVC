@@ -4,8 +4,8 @@
 
     <h1 th:text="*{name}" class="light-rounded"></h1>
     <p th:text="*{description}"></p>
-    <p th:text="${#temporals.format(offerItem.startDate, 'dd/MM/yyyy')}"></p>
-    <p th:text="${#temporals.format(offerItem.endDate, 'dd/MM/yyyy')}"></p>
+    <p th:text="'С ' + ${#temporals.format(offerItem.startDate, 'dd/MM/yyyy')}"></p>
+    <p th:text="'По ' + ${#temporals.format(offerItem.endDate, 'dd/MM/yyyy')}"></p>
 
 </div>
 

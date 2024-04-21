@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -20,11 +21,14 @@ public class Product {
 
     private String description;
 
+    private String imgSrc;
+
     private Double price;
 
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;

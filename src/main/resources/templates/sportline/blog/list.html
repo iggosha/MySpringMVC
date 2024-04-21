@@ -14,28 +14,30 @@
                value="Добавить"/>
     </form>
     <br>
+</section>
+
+<section>
     <h1 class="light-rounded">Блог SportLine</h1>
     <div class="card-container">
-        <div class="card" th:each="blogPost : ${blogPostsPage.getContent()}">
+        <div class="card" th:each="blogPost : ${blogPostsList}">
             <h3 th:text="${blogPost.heading}"></h3>
             <p th:text="${blogPost.content}"></p>
             <p th:text="${#temporals.format(blogPost.publicationDate, 'dd.MM.yyyy HH:mm:ss')}"></p>
             <a th:href="@{/sportline/blog/{id}(id=*{blogPost.id})}" class="card-button">Перейти</a>
         </div>
     </div>
-</section>
-
-<section class="card-page-nav light-rounded">
-    <a th:if="${blogPostsPage.hasPrevious()}"
-       th:href="@{/sportline/blog(pageNum=${blogPostsPage.number - 1})}"
-       class="card-button">
-        < Предыдущая страница
-    </a>
-    <a th:if="${blogPostsPage.hasNext()}"
-       th:href="@{/sportline/blog(pageNum=${blogPostsPage.number + 1})}"
-       class="card-button">
-        Следующая страница >
-    </a>
+    <div class="card-page-nav light-rounded">
+        <a th:if="${blogPostsPage.hasPrevious()}"
+           th:href="@{/sportline/blog(pageNum=${blogPostsPage.number - 1})}"
+           class="card-button">
+            < Предыдущая страница
+        </a>
+        <a th:if="${blogPostsPage.hasNext()}"
+           th:href="@{/sportline/blog(pageNum=${blogPostsPage.number + 1})}"
+           class="card-button">
+            Следующая страница >
+        </a>
+    </div>
 </section>
 
 <div th:replace="~{/sportline/basic/footer.html}"></div>

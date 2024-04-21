@@ -27,7 +27,8 @@ header img {
 
 label {
     display: block;
-    margin-bottom: 2vh;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
 }
 
 form {

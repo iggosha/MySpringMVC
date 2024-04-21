@@ -1,5 +1,69 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
-Добро пожаловать
+<section>
+    <form th:method="post" th:action="@{/sportline/products}" th:object="${product}">
+        <h1>Добавить товар</h1>
+
+        <label for="heading">Название:</label>
+        <input type="text" id="heading" th:field="*{name}" required>
+
+        <label for="description">Описание:</label>
+        <textarea id="description" th:field="*{description}" rows="5" required></textarea>
+
+        <label for="price">Цена:</label>
+        <input type="number" step="0.01" id="price" th:field="*{price}" required>
+
+        <label for="imgSrc">Изображение:</label>
+        <input type="text" id="imgSrc" th:field="*{imgSrc}">
+
+        <label for="status">Статус:</label>
+        <select th:field="*{status}" id="status" required>
+            <option th:each="statusItem : ${statusesArray}"
+                    th:value="${statusItem}"
+                    th:text="${statusItem.getTranslated()}">
+            </option>
+        </select>
+
+        <label for="brand">Бренд:</label>
+        <select th:field="*{brand}" id="brand" required>
+            <option th:each="brandItem : ${brandsList}"
+                    th:value="${brandItem.id}"
+                    th:text="${brandItem.name}">
+
+            </option>
+        </select>
+
+        <br>
+
+        <input type="submit"
+               class="card-button"
+               value="Добавить"/>
+    </form>
+    <br>
+</section>
+
+<section>
+    <h1 class="light-rounded">Товары в SportLine</h1>
+    <div class="card-container">
+        <div class="card" th:each="productItem : ${productsList}">
+            <p th:text="${productItem.brand.name} + ' ' + ${productItem.name}"></p>
+            <img th:src="${productItem.imgSrc}" alt="Изображение товара" style="width: 24vh">
+            <p th:text="${productItem.price} + ' руб.'"></p>
+            <a th:href="@{/sportline/products/{id}(id=*{productItem.id})}" class="card-button">Перейти</a>
+        </div>
+    </div>
+    <div class="card-page-nav light-rounded">
+        <a th:if="${productsPage.hasPrevious()}"
+           th:href="@{/sportline/products(pageNum=${productsPage.number - 1})}"
+           class="card-button">
+            < Предыдущая страница
+        </a>
+        <a th:if="${productsPage.hasNext()}"
+           th:href="@{/sportline/products(pageNum=${productsPage.number + 1})}"
+           class="card-button">
+            Следующая страница >
+        </a>
+    </div>
+</section>
 
 <div th:replace="~{/sportline/basic/footer.html}"></div>

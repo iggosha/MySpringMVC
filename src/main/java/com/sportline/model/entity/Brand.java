@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -24,8 +25,9 @@ public class Brand {
 
     private String description;
 
-    private Double website;
+    private String website;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "brand")
     private List<Product> products;
 }
