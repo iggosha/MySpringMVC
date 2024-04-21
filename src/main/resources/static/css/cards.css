@@ -19,6 +19,7 @@
 }
 
 .card-button {
+    line-height: 5vh;
     background-color: var(--secondary-color);
     color: var(--m-light-color);
     padding: 1vh;

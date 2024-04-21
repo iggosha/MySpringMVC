@@ -1,12 +1,12 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
-<div th:object="${offerItem}">
+<div class="card-container">
+    <div th:object="${offerItem}" class="card">
+        <h1 th:text="*{name}" class="light-rounded"></h1>
+        <p th:text="*{description}"></p>
+        <p th:text="'С ' + ${#temporals.format(offerItem.startDate, 'dd/MM/yyyy')} + ' по ' + ${#temporals.format(offerItem.endDate, 'dd/MM/yyyy')}"></p>
 
-    <h1 th:text="*{name}" class="light-rounded"></h1>
-    <p th:text="*{description}"></p>
-    <p th:text="'С ' + ${#temporals.format(offerItem.startDate, 'dd/MM/yyyy')}"></p>
-    <p th:text="'По ' + ${#temporals.format(offerItem.endDate, 'dd/MM/yyyy')}"></p>
-
+    </div>
 </div>
 
 <form th:action="@{/sportline/offers/{id}(id=${offerItem.id})}" th:object="${offerItem}" th:method="put">

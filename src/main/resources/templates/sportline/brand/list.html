@@ -31,8 +31,10 @@
         <div class="card" th:each="brandItem : ${brandsList}">
             <h3 th:text="${brandItem.name}"></h3>
             <p th:text="${brandItem.country}"></p>
-            <p th:text="${brandItem.description}"></p>
-            <a th:href="${brandItem.website}"></a>
+            <a th:href="*{brandItem.website}"
+               th:text="'Веб-сайт: '+*{brandItem.website}"
+               class="card-button"
+               target="_blank"></a>
             <a th:href="@{/sportline/brands/{id}(id=*{brandItem.id})}" class="card-button">Перейти</a>
         </div>
     </div>

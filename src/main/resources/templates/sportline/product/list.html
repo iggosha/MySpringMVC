@@ -49,7 +49,7 @@
             <p th:text="${productItem.brand.name} + ' ' + ${productItem.name}"></p>
             <img th:src="${productItem.imgSrc}" alt="Изображение товара" style="width: 24vh">
             <p th:text="${productItem.price} + ' руб.'"></p>
-            <a th:href="@{/sportline/products/{id}(id=*{productItem.id})}" class="card-button">Перейти</a>
+            <a th:href="@{/sportline/products/{id}(id=*{productItem.id})}" class="card-button">Перейти ></a>
         </div>
     </div>
     <div class="card-page-nav light-rounded">

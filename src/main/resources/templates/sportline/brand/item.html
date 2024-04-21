@@ -1,13 +1,15 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
-<div th:object="${brandItem}" style="margin-bottom: 12vh">
-    <h1 th:text="*{name}" class="light-rounded"></h1>
-    <p th:text="'Страна: '+*{country}"></p>
-    <p th:text="'Описание: '+*{description}"></p>
-    <a th:href="*{website}"
-       th:text="'Веб-сайт: '+*{website}"
-       class="card-button"
-       target="_blank"></a>
+<div class="card-container">
+    <div th:object="${brandItem}" class="card">
+        <h1 th:text="*{name}" class="light-rounded"></h1>
+        <p th:text="'Страна: '+*{country}"></p>
+        <p th:text="'Описание: '+*{description}"></p>
+        <a th:href="*{website}"
+           th:text="'Веб-сайт: '+*{website}"
+           class="card-button"
+           target="_blank"></a>
+    </div>
 </div>
 
 <form th:action="@{/sportline/brands/{id}(id=${brandItem.id})}" th:object="${brandItem}" th:method="put">
@@ -21,7 +23,7 @@
     <input type="text" id="country" th:field="*{country}" required>
 
     <label for="description">Описание:</label>
-    <input type="text" id="description" th:field="*{description}" required>
+    <textarea id="description" th:field="*{description}" rows="5" required></textarea>
 
     <label for="website">Веб-сайт:</label>
     <input type="text" id="website" th:field="*{website}" required>

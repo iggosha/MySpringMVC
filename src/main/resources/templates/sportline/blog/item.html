@@ -1,12 +1,12 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
-<div th:object="${blogPostItem}">
-
-    <h1 th:text="*{heading}" class="light-rounded"></h1>
-    <p th:text="*{content}"></p>
-    <p>Дата публикации: <span
-            th:text="${#temporals.format(blogPostItem.publicationDate, 'dd/MM/yyyy HH:mm:ss')}"></span></p>
-
+<div class="card-container">
+    <div th:object="${blogPostItem}" class="card">
+        <h1 th:text="*{heading}" class="light-rounded"></h1>
+        <p th:text="*{content}"></p>
+        <p th:text="'Время публикации: ' + ${#temporals.format(blogPostItem.publicationDate, 'HH:mm:ss dd/MM/yyyy')}">
+        </p>
+    </div>
 </div>
 
 <form th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}" th:object="${blogPostItem}" th:method="put">
