@@ -1,0 +1,43 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<section>
+    <form th:method="post" th:action="@{/sportline/blog}" th:object="${blogPost}">
+        <h1>Добавить пост в блог</h1>
+        <label for="heading">Заголовок:</label>
+        <input type="text" id="heading" th:field="*{heading}" required>
+
+        <label for="content">Содержимое:</label>
+        <textarea id="content" th:field="*{content}" rows="5" required></textarea>
+        <br>
+        <input type="submit"
+               class="card-button"
+               value="Добавить"/>
+    </form>
+    <br>
+</section>
+
+<section>
+    <h1 class="light-rounded">Блог SportLine</h1>
+    <div class="card-container">
+        <div class="card" th:each="blogPost : ${blogPostsList}">
+            <h3 th:text="${blogPost.heading}"></h3>
+            <p th:text="${blogPost.content}"></p>
+            <p th:text="'Время публикации: ' + ${#temporals.format(blogPost.publicationDate, 'HH:mm:ss dd/MM/yyyy')}"></p>
+            <a th:href="@{/sportline/blog/{id}(id=*{blogPost.id})}" class="card-button">Перейти</a>
+        </div>
+    </div>
+    <div class="card-page-nav light-rounded">
+        <a th:if="${blogPostsPage.hasPrevious()}"
+           th:href="@{/sportline/blog(pageNum=${blogPostsPage.number - 1})}"
+           class="card-button">
+            < Предыдущая страница
+        </a>
+        <a th:if="${blogPostsPage.hasNext()}"
+           th:href="@{/sportline/blog(pageNum=${blogPostsPage.number + 1})}"
+           class="card-button">
+            Следующая страница >
+        </a>
+    </div>
+</section>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>

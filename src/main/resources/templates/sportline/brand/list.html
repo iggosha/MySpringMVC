@@ -1,0 +1,56 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<section>
+    <form th:method="post" th:action="@{/sportline/brands}" th:object="${brand}">
+        <h1>Добавить бренд</h1>
+
+        <label for="name">Название:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+
+        <label for="country">Страна:</label>
+        <input type="text" id="country" th:field="*{country}" required>
+
+        <label for="description">Описание:</label>
+        <input type="text" id="description" th:field="*{description}" required>
+
+        <label for="website">Веб-сайт:</label>
+        <input type="text" id="website" th:field="*{website}" required>
+
+        <br>
+
+        <input type="submit"
+               class="card-button"
+               value="Добавить"/>
+    </form>
+    <br>
+</section>
+
+<section>
+    <h1 class="light-rounded">Бренды в SportLine</h1>
+    <div class="card-container">
+        <div class="card" th:each="brandItem : ${brandsList}">
+            <h3 th:text="${brandItem.name}"></h3>
+            <p th:text="${brandItem.country}"></p>
+            <a th:href="*{brandItem.website}"
+               th:text="'Веб-сайт: '+*{brandItem.website}"
+               class="card-button"
+               target="_blank"></a>
+            <a th:href="@{/sportline/brands/{id}(id=*{brandItem.id})}" class="card-button">Перейти</a>
+        </div>
+    </div>
+
+    <div class="card-page-nav light-rounded">
+        <a th:if="${brandsPage.hasPrevious()}"
+           th:href="@{/sportline/brands(pageNum=${brandsPage.number - 1})}"
+           class="card-button">
+            < Предыдущая страница
+        </a>
+        <a th:if="${brandsPage.hasNext()}"
+           th:href="@{/sportline/brands(pageNum=${brandsPage.number + 1})}"
+           class="card-button">
+            Следующая страница >
+        </a>
+    </div>
+</section>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>

@@ -1,0 +1,57 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<div class="card-container">
+    <div th:object="${brandItem}" class="card">
+        <h1 th:text="*{name}" class="light-rounded"></h1>
+        <p th:text="'Страна: '+*{country}"></p>
+        <p th:text="'Описание: '+*{description}"></p>
+        <a th:href="*{website}"
+           th:text="'Веб-сайт: '+*{website}"
+           class="card-button"
+           target="_blank"></a>
+    </div>
+</div>
+
+<form th:action="@{/sportline/brands/{id}(id=${brandItem.id})}" th:object="${brandItem}" th:method="put">
+
+    <h2>Изменить бренд</h2>
+
+    <label for="name">Название:</label>
+    <input type="text" id="name" th:field="*{name}" required>
+
+    <label for="country">Страна:</label>
+    <input type="text" id="country" th:field="*{country}" required>
+
+    <label for="description">Описание:</label>
+    <textarea id="description" th:field="*{description}" rows="5" required></textarea>
+
+    <label for="website">Веб-сайт:</label>
+    <input type="text" id="website" th:field="*{website}" required>
+
+    <br>
+
+    <input type="submit"
+           class="card-button"
+           value="Изменить"/>
+</form>
+
+<form th:action="@{/sportline/brands/{id}(id=${brandItem.id})}" th:method="delete">
+    <h2>Удалить бренд</h2>
+    <input type="submit"
+           onclick="return confirm('Вы уверены, что хотите удалить этот бренд?')"
+           value="Удалить"
+           class="card-button"
+    />
+</form>
+
+
+<h1 class="light-rounded">Товары этого бренда в SportLine:</h1>
+<div class="card-container">
+    <div class="card" th:each="productItem : ${brandItem.getProducts()}">
+        <p th:text="${productItem.brand.name} + ' ' + ${productItem.name}"></p>
+        <p th:text="${productItem.price} + 'руб.'"></p>
+        <a th:href="@{/sportline/products/{id}(id=*{productItem.id})}" class="card-button">Перейти</a>
+    </div>
+</div>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>

@@ -1,0 +1,44 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<div class="card-container">
+    <div th:object="${offerItem}" class="card">
+        <h1 th:text="*{name}" class="light-rounded"></h1>
+        <p th:text="*{description}"></p>
+        <p th:text="'С ' + ${#temporals.format(offerItem.startDate, 'dd/MM/yyyy')} + ' по ' + ${#temporals.format(offerItem.endDate, 'dd/MM/yyyy')}"></p>
+
+    </div>
+</div>
+
+<form th:action="@{/sportline/offers/{id}(id=${offerItem.id})}" th:object="${offerItem}" th:method="put">
+
+    <h2>Изменить спецпредложение</h2>
+
+    <label for="heading">Название:</label>
+    <input type="text" id="heading" th:field="*{name}" required>
+
+    <label for="content">Описание:</label>
+    <textarea id="content" th:field="*{description}" rows="5" required></textarea>
+
+    <label for="date_start">Дата начала действия:</label>
+    <input type="date" id="date_start" th:field="*{startDate}">
+
+    <label for="date_end">Дата окончания действия:</label>
+    <input type="date" id="date_end" th:field="*{endDate}">
+
+    <br>
+
+    <input type="submit"
+           class="card-button"
+           value="Изменить"/>
+</form>
+
+<form th:action="@{/sportline/offers/{id}(id=${offerItem.id})}" th:method="delete">
+    <h2>Удалить спецпредложение</h2>
+    <input type="submit"
+           onclick="return confirm('Вы уверены, что хотите удалить это спецпредложение?')"
+           value="Удалить"
+           class="card-button"
+    />
+</form>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>

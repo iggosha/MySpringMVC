@@ -1,0 +1,35 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<div class="card-container">
+    <div th:object="${blogPostItem}" class="card">
+        <h1 th:text="*{heading}" class="light-rounded"></h1>
+        <p th:text="*{content}"></p>
+        <p th:text="'Время публикации: ' + ${#temporals.format(blogPostItem.publicationDate, 'HH:mm:ss dd/MM/yyyy')}">
+        </p>
+    </div>
+</div>
+
+<form th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}" th:object="${blogPostItem}" th:method="put">
+
+    <h2>Изменить пост</h2>
+    <label for="heading">Заголовок:</label>
+    <input type="text" id="heading" th:field="*{heading}" required>
+
+    <label for="content">Содержимое:</label>
+    <textarea id="content" th:field="*{content}" rows="5" required></textarea>
+    <br>
+    <input type="submit"
+           class="card-button"
+           value="Изменить"/>
+</form>
+
+<form th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}" th:method="delete">
+    <h2>Удалить пост</h2>
+    <input type="submit"
+           onclick="return confirm('Вы уверены, что хотите удалить этот пост?')"
+           value="Удалить"
+           class="card-button"
+    />
+</form>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>
