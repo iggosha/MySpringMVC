@@ -22,7 +22,7 @@
         <div class="card" th:each="blogPost : ${blogPostsList}">
             <h3 th:text="${blogPost.heading}"></h3>
             <p th:text="${blogPost.content}"></p>
-            <p th:text="'Время публикации: ' + ${#temporals.format(blogPost.publicationDate, 'HH:mm:ss dd/MM/yyyy')}">
+            <p th:text="'Время публикации: ' + ${#temporals.format(blogPost.publicationDate, 'HH:mm:ss dd/MM/yyyy')}"></p>
             <a th:href="@{/sportline/blog/{id}(id=*{blogPost.id})}" class="card-button">Перейти</a>
         </div>
     </div>
