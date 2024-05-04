@@ -1,13 +1,13 @@
 ALTER TABLE devices ADD CONSTRAINT name_unique UNIQUE(name);
 
-create table authors
+create table smarthome.authors
 (
     id        serial
         primary key,
     full_name varchar
 );
 
-create table public.devices
+create table smarthome.devices
 (
     id      serial
         primary key,
@@ -18,7 +18,7 @@ create table public.devices
     price   double precision
 );
 
-create table public.newscards
+create table smarthome.newscards
 (
     id            serial
         primary key,
@@ -26,7 +26,7 @@ create table public.newscards
     content       varchar,
     creation_date timestamp with time zone default now(),
     author_id     integer
-        references public.authors
+        references smarthome.authors
 );
 
 ALTER TABLE newscards

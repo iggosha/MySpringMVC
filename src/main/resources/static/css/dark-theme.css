@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: dark) {
     body {
-        font-family: 'Century Gothic', sans-serif;
+        font-family: 'MS Reference Sans Serif', sans-serif;
         color: var(--m-light-color);
         font-size: 2vh;
         background-color: var(--dark-color);
@@ -21,8 +21,13 @@
     }
 
     header a {
-        padding: 0 3vw;
-        font-size: 6vh;
+        text-transform: uppercase;
+        padding: 0 2vw;
+        font-size: 4vh;
+    }
+
+    header img {
+        height: 3.5vh;
     }
 
     header {
@@ -42,8 +47,6 @@
     }
 
     .light-rounded {
-        text-transform: uppercase;
-        font-weight: bolder;
         border: 1px solid var(--m-dark-border);
         background-color: var(--m-dark-color);
         border-radius: 1vh;
