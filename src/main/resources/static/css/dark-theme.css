@@ -1,6 +1,6 @@
 @media (prefers-color-scheme: dark) {
     body {
-        font-family: 'MS Reference Sans Serif', sans-serif;
+        font-family: 'Bahnschrift L', sans-serif;
         color: var(--m-light-color);
         font-size: 2vh;
         background-color: var(--dark-color);
@@ -11,6 +11,7 @@
     input[type=number],
     input[type=datetime-local],
     input[type=date],
+    input[type=password],
     option,
     select {
         font-family: 'Consolas L', sans-serif;
@@ -21,7 +22,6 @@
     }
 
     header a {
-        text-transform: uppercase;
         padding: 0 2vw;
         font-size: 4vh;
     }

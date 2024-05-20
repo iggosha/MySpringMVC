@@ -10,8 +10,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
@@ -22,9 +20,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/sportline/login", "/css/**", "/img/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
+                )
                 .userDetailsService(userDetailsWrapperService)
-                .formLogin(withDefaults())
+                .formLogin(form -> form
+                        .loginPage("/sportline/login")
+                        .loginProcessingUrl("/sportline/process_login")
+                        .defaultSuccessUrl("/sportline", true)
+                        .failureUrl("/sportline/login?error")
+                )
                 .build();
     }
 
