@@ -1,11 +1,13 @@
 package com.sportline.config;
 
-import com.sportline.security.AuthenticationProviderImpl;
+import com.sportline.service.UserDetailsWrapperService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -15,15 +17,19 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private final AuthenticationProviderImpl authenticationProvider;
+    private final UserDetailsWrapperService userDetailsWrapperService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
-                .authenticationProvider(authenticationProvider)
+                .userDetailsService(userDetailsWrapperService)
                 .formLogin(withDefaults())
-                .httpBasic(withDefaults())
                 .build();
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }

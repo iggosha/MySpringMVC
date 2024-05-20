@@ -33,8 +33,9 @@
             <p th:text="${brandItem.country}"></p>
             <a th:href="*{brandItem.website}"
                th:text="'Веб-сайт: '+*{brandItem.website}"
-               class="card-button"
                target="_blank"></a>
+            <br>
+            <br>
             <a th:href="@{/sportline/brands/{id}(id=*{brandItem.id})}" class="card-button">Перейти</a>
         </div>
     </div>
