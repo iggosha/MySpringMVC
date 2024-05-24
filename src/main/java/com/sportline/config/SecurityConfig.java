@@ -39,6 +39,10 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/sportline", true)
                         .failureUrl("/sportline/login?error")
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/sportline/logout")
+                        .logoutSuccessUrl("/sportline/login")
+                )
                 .build();
     }
 
