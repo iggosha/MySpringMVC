@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 public class SecurityConfig {
 
+    public static final String SPORTLINE_LOGIN = "/sportline/login";
     private final UserDetailsWrapperService userDetailsWrapperService;
 
     @Bean
@@ -24,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 "/sportline/registration",
-                                "/sportline/login",
+                                SPORTLINE_LOGIN,
                                 "/css/**",
                                 "/img/**"
                         )
@@ -34,20 +35,20 @@ public class SecurityConfig {
                 )
                 .userDetailsService(userDetailsWrapperService)
                 .formLogin(form -> form
-                        .loginPage("/sportline/login")
+                        .loginPage(SPORTLINE_LOGIN)
                         .loginProcessingUrl("/sportline/process_login")
                         .defaultSuccessUrl("/sportline", true)
                         .failureUrl("/sportline/login?error")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/sportline/logout")
-                        .logoutSuccessUrl("/sportline/login")
+                        .logoutSuccessUrl(SPORTLINE_LOGIN)
                 )
                 .build();
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }
