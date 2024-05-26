@@ -5,6 +5,7 @@ import com.sportline.repository.UserRepository;
 import com.sportline.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public String getAdminPagePath() {
+        System.out.println("access to admin page");
+        return "/sportline/basic/admin";
     }
 
     @Transactional
@@ -51,12 +59,14 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Transactional
     @Override
     public void updateById(User entity, long id) {
         // Пока не требуется
         return;
     }
 
+    @Transactional
     @Override
     public void deleteById(Long id) {
         // Пока не требуется

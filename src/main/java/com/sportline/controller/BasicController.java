@@ -47,7 +47,7 @@ public class BasicController {
 
     @GetMapping("/admin")
     public String getAdmin() {
-        return "sportline/basic/admin";
+        return userService.getAdminPagePath();
     }
 
     @PostMapping("/registration")

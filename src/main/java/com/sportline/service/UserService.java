@@ -8,6 +8,6 @@ public interface UserService extends CrudService<User> {
 
     Optional<User> findByUsername(String username);
 
-    void create(User user);
+    String getAdminPagePath();
 
 }
