@@ -1,6 +1,7 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
-<form name="f" method="post" action="/sportline/process_login">
+<form th:method="POST" th:action="@{/sportline/process_login}">
+<!-- В форме генерируется <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">-->
     <label for="username">Введите имя пользователя: </label>
     <input type="text" name="username" id="username"/>
     <label for="password">Введите пароль: </label>
@@ -12,11 +13,12 @@
     </div>
 </form>
 
+<form th:method="POST" th:action="@{/sportline/logout}">
+    <p>Хотите выйти из текущего аккаунта?</p>
+    <input type="submit" class="card-button" value="Выйти из аккаунта">
+</form>
+
 <p>Не зарегистрированы?</p>
 <a th:href="@{/sportline/registration}" class="card-button">Зарегистрироваться</a>
-
-<p>Хотите войти в другой аккаунт?</p>
-<a th:href="@{/sportline/logout}" class="card-button">Выйти из аккаунта</a>
-
 
 <div th:replace="~{/sportline/basic/footer.html}"></div>

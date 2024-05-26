@@ -1,12 +1,12 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
-<form method="post" action="/sportline/registration" th:object="${user}">
-    <label for="username">Введите имя пользователя: </label>
+<form th:method="POST" th:action="@{/sportline/registration}" th:object="${user}">
+    <label for="username">Введите имя: </label>
     <input type="text" name="username" id="username"/>
     <div th:if="${#fields.hasErrors('username')}" style="color: red" th:errors="*{username}"> Некорректное имя пользователя</div>
 
 
-    <label for="date-of-birth">Введите дату рождения пользователя: </label>
+    <label for="date-of-birth">Введите дату рождения: </label>
     <input type="date" name="dateOfBirth" id="date-of-birth"/>
     <div th:if="${#fields.hasErrors('dateOfBirth')}" style="color: red" th:errors="*{dateOfBirth}"> Некорректная дата рождения </div>
 
