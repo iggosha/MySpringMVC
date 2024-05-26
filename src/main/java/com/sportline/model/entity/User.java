@@ -31,4 +31,6 @@ public class User {
 
     @Size(min = 6, message = "Пароль должен содержать >= 6 символов")
     private String password;
+
+    private String role;
 }

@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
         userRepository.save(user);
     }
 
@@ -41,7 +42,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> findAllByPage(int pageNum, int pageSize) {
         // Пока не требуется
-
         return null;
     }
 

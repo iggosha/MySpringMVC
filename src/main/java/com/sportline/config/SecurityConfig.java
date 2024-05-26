@@ -23,14 +23,18 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
+                                "/sportline/admin"
+                        ).hasRole("ADMIN")
+
+                        .requestMatchers(
                                 "/sportline/registration",
                                 SPORTLINE_LOGIN,
                                 "/css/**",
                                 "/img/**"
-                        )
-                        .permitAll()
+                        ).permitAll()
+
                         .anyRequest()
-                        .authenticated()
+                        .hasAnyRole("USER", "ADMIN")
                 )
                 .userDetailsService(userDetailsWrapperService)
                 .formLogin(form -> form
