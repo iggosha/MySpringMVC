@@ -45,11 +45,6 @@ public class BasicController {
         return REGISTRATION_PAGE;
     }
 
-    @GetMapping("/admin")
-    public String getAdmin() {
-        return userService.getAdminPagePath();
-    }
-
     @PostMapping("/registration")
     public String postRegistration(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
@@ -57,6 +52,6 @@ public class BasicController {
             return REGISTRATION_PAGE;
         }
         userService.create(user);
-        return "redirect:/sportline/basic/login";
+        return "redirect:/" + LOGIN_PAGE;
     }
 }

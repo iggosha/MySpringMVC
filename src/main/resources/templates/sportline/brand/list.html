@@ -1,7 +1,11 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
 <section>
-    <form th:method="post" th:action="@{/sportline/brands}" th:object="${brand}">
+    <form
+            th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+            th:method="post"
+            th:action="@{/sportline/brands}"
+            th:object="${brand}">
         <h1>Добавить бренд</h1>
 
         <label for="name">Название:</label>

@@ -1,7 +1,12 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
 <section>
-    <form th:method="post" th:action="@{/sportline/offers}" th:object="${offer}">
+    <form
+            th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+            th:method="post"
+            th:action="@{/sportline/offers}"
+            th:object="${offer}"
+    >
         <h1>Добавить специальное предложение</h1>
 
         <label for="name">Название:</label>

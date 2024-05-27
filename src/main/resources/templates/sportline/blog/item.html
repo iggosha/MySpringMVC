@@ -9,7 +9,12 @@
     </div>
 </div>
 
-<form th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}" th:object="${blogPostItem}" th:method="put">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}"
+        th:object="${blogPostItem}"
+        th:method="put"
+>
 
     <h2>Изменить пост</h2>
     <label for="heading">Заголовок:</label>
@@ -23,7 +28,11 @@
            value="Изменить"/>
 </form>
 
-<form th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}" th:method="delete">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/blog/{id}(id=${blogPostItem.id})}"
+        th:method="delete"
+>
     <h2>Удалить пост</h2>
     <input type="submit"
            onclick="return confirm('Вы уверены, что хотите удалить этот пост?')"

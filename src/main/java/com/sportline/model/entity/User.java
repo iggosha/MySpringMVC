@@ -33,4 +33,12 @@ public class User {
     private String password;
 
     private String role;
+
+    public boolean hasRoleAdmin() {
+        if (this.role != null) {
+            return role.equals("ROLE_ADMIN");
+        } else {
+            return false;
+        }
+    }
 }

@@ -2,8 +2,10 @@ package com.sportline.controller;
 
 
 import com.sportline.model.entity.Brand;
+import com.sportline.security.UserDetailsWrapper;
 import com.sportline.service.BrandService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,18 +40,28 @@ public class BrandController {
     }
 
     @GetMapping("")
-    public String getBrands(Model model,
+    public String getBrands(Authentication authentication,
+                            Model model,
                             @ModelAttribute("brand") Brand brand,
                             @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
                             @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("brandsPage", brandService.findAllByPage(pageNum, pageSize));
         model.addAttribute("brandsList", brandService.findAllByPage(pageNum, pageSize).getContent());
         return "sportline/brand/list";
     }
 
     @GetMapping("/{id}")
-    public String getBrand(Model model,
+    public String getBrand(Authentication authentication,
+                           Model model,
                            @PathVariable("id") long id) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("brandItem", brandService.getById(id));
         return "sportline/brand/item";
     }

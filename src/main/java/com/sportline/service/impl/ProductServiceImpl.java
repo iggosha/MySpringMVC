@@ -1,6 +1,6 @@
 package com.sportline.service.impl;
 
-import com.sportline.exc.CustomNotFoundException;
+import com.sportline.exc.custom.CustomNotFoundException;
 import com.sportline.model.entity.Product;
 import com.sportline.repository.ProductRepository;
 import com.sportline.service.ProductService;
@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +24,25 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void create(Product product) {
         productRepository.save(product);
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public void updateById(Product product, long id) {
+        product.setId(id);
+        productRepository.save(product);
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
     }
 
     @Override
@@ -54,18 +71,5 @@ public class ProductServiceImpl implements ProductService {
         return productRepository
                 .findById(id)
                 .orElseThrow(() -> new CustomNotFoundException("Товар", id));
-    }
-
-    @Transactional
-    @Override
-    public void updateById(Product product, long id) {
-        product.setId(id);
-        productRepository.save(product);
-    }
-
-    @Transactional
-    @Override
-    public void deleteById(Long id) {
-        productRepository.deleteById(id);
     }
 }

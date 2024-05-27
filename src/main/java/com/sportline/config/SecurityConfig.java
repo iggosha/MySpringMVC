@@ -17,7 +17,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 public class SecurityConfig {
 
-    public static final String SPORTLINE_LOGIN = "/sportline/login";
+    public static final String SPORTLINE_ADDR = "/sportline";
+
     private final UserDetailsWrapperService userDetailsWrapperService;
 
     @Bean
@@ -25,25 +26,29 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
-                                "/sportline/registration",
-                                SPORTLINE_LOGIN,
+                                SPORTLINE_ADDR + "/registration",
+                                SPORTLINE_ADDR + "/login",
+
+                                SPORTLINE_ADDR + "/brands",
+                                SPORTLINE_ADDR + "/blog",
+                                SPORTLINE_ADDR + "/products",
+                                SPORTLINE_ADDR,
                                 "/css/**",
                                 "/img/**"
                         ).permitAll()
-
                         .anyRequest()
                         .hasAnyRole("USER", "ADMIN")
                 )
                 .userDetailsService(userDetailsWrapperService)
                 .formLogin(form -> form
-                        .loginPage(SPORTLINE_LOGIN)
+                        .loginPage(SPORTLINE_ADDR + "/login")
                         .loginProcessingUrl("/sportline/process_login")
-                        .defaultSuccessUrl("/sportline", true)
-                        .failureUrl("/sportline/login?error")
+                        .defaultSuccessUrl(SPORTLINE_ADDR, true)
+                        .failureUrl(SPORTLINE_ADDR + "/login?error")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/sportline/logout")
-                        .logoutSuccessUrl(SPORTLINE_LOGIN)
+                        .logoutSuccessUrl(SPORTLINE_ADDR + "/login")
                 )
                 .build();
     }

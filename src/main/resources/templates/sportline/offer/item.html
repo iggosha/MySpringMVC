@@ -9,7 +9,12 @@
     </div>
 </div>
 
-<form th:action="@{/sportline/offers/{id}(id=${offerItem.id})}" th:object="${offerItem}" th:method="put">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/offers/{id}(id=${offerItem.id})}"
+        th:object="${offerItem}"
+        th:method="put"
+>
 
     <h2>Изменить спецпредложение</h2>
 
@@ -32,7 +37,11 @@
            value="Изменить"/>
 </form>
 
-<form th:action="@{/sportline/offers/{id}(id=${offerItem.id})}" th:method="delete">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/offers/{id}(id=${offerItem.id})}"
+        th:method="delete"
+>
     <h2>Удалить спецпредложение</h2>
     <input type="submit"
            onclick="return confirm('Вы уверены, что хотите удалить это спецпредложение?')"

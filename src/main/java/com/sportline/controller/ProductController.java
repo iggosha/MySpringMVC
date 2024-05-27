@@ -3,10 +3,12 @@ package com.sportline.controller;
 
 import com.sportline.model.entity.Product;
 import com.sportline.model.entity.Status;
+import com.sportline.security.UserDetailsWrapper;
 import com.sportline.service.BrandService;
 import com.sportline.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +47,8 @@ public class ProductController {
     }
 
     @GetMapping("")
-    public String getProducts(Model model,
+    public String getProducts(Authentication authentication,
+                              Model model,
                               @ModelAttribute("product") Product product,
                               @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
                               @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize,
@@ -53,6 +56,11 @@ public class ProductController {
                               @RequestParam(name = "fieldName", required = false, defaultValue = "name") String fieldName,
                               @RequestParam(name = "asc", required = false, defaultValue = "false") Boolean ascending
     ) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
+
         Page<Product> productPage = productService.findAllByPageAndName(pageNum, pageSize, searchName, fieldName, ascending);
         model.addAttribute("statusesArray", Status.values());
 
@@ -72,8 +80,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public String getProduct(Model model,
+    public String getProduct(Authentication authentication,
+                             Model model,
                              @PathVariable("id") long id) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("productItem", productService.getById(id));
         model.addAttribute("brandsList", brandService.findAll());
         model.addAttribute("statusesArray", Status.values());

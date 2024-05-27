@@ -1,7 +1,12 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
 <section>
-    <form th:method="post" th:action="@{/sportline/blog}" th:object="${blogPost}">
+    <form
+            th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+            th:method="post"
+            th:action="@{/sportline/blog}"
+            th:object="${blogPost}"
+    >
         <h1>Добавить пост в блог</h1>
         <label for="heading">Заголовок:</label>
         <input type="text" id="heading" th:field="*{heading}" required>

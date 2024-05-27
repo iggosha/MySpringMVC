@@ -21,24 +21,34 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @Override
-    public String getAdminPagePath() {
-        System.out.println("access to admin page");
-        return "/sportline/basic/admin";
-    }
-
     @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_USER");
         userRepository.save(user);
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public void updateById(User entity, long id) {
+        // Пока не требуется
+        return;
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public void deleteById(Long id) {
+        // Пока не требуется
+        return;
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     @Override
@@ -57,19 +67,5 @@ public class UserServiceImpl implements UserService {
     public User getById(Long id) {
         // Пока не требуется
         return null;
-    }
-
-    @Transactional
-    @Override
-    public void updateById(User entity, long id) {
-        // Пока не требуется
-        return;
-    }
-
-    @Transactional
-    @Override
-    public void deleteById(Long id) {
-        // Пока не требуется
-        return;
     }
 }

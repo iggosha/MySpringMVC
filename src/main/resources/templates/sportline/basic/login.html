@@ -4,7 +4,10 @@
     <p>Вы пока не вошли в аккаунт</p>
 </div>
 
-<form th:method="POST" th:action="@{/sportline/logout}" th:if="${userDetailsWrapper}">
+<form th:method="POST"
+      th:action="@{/sportline/logout}"
+      th:if="${userDetailsWrapper}"
+>
 
     <p>Данные текущего аккаунта:</p>
     <p th:text="${userDetailsWrapper.user.username.toString()}"></p>

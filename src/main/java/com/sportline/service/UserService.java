@@ -8,6 +8,4 @@ public interface UserService extends CrudService<User> {
 
     Optional<User> findByUsername(String username);
 
-    String getAdminPagePath();
-
 }
