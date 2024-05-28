@@ -1,5 +1,7 @@
-package com.sportline.exc;
+package com.sportline.exc.custom;
 
+
+import com.sportline.exc.GlobalAppException;
 
 public class CustomNotFoundException extends GlobalAppException {
 

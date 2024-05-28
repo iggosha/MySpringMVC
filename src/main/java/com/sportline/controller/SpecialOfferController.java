@@ -1,8 +1,10 @@
 package com.sportline.controller;
 
 import com.sportline.model.entity.SpecialOffer;
+import com.sportline.security.UserDetailsWrapper;
 import com.sportline.service.SpecialOfferService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,18 +39,28 @@ public class SpecialOfferController {
     }
 
     @GetMapping("")
-    public String getSpecialOffer(Model model,
+    public String getSpecialOffer(Authentication authentication,
+                                  Model model,
                                   @ModelAttribute("offer") SpecialOffer specialOffer,
                                   @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
                                   @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("offersPage", specialOfferService.findAllByPage(pageNum, pageSize));
         model.addAttribute("offersList", specialOfferService.findAllByPage(pageNum, pageSize).getContent());
         return "sportline/offer/list";
     }
 
     @GetMapping("/{id}")
-    public String getSpecialOffer(Model model,
+    public String getSpecialOffer(Authentication authentication,
+                                  Model model,
                                   @PathVariable("id") long id) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("offerItem", specialOfferService.getById(id));
         return "sportline/offer/item";
     }

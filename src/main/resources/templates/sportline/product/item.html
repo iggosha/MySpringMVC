@@ -1,20 +1,25 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
+
 <div class="card-container">
     <div th:object="${productItem}" class="card">
         <h1 th:text="${productItem.brand.name} + ' ' + ${productItem.name}" class="light-rounded"></h1>
         <img th:src="*{imgSrc}" alt="Изображение товара" style="width: 24vh; border-radius: 1vh">
         <p th:text="*{description}"></p>
         <p th:text="*{status.getTranslated()}"></p>
-        <p th:text="${productItem.price} + ' руб.'" class="card-button"></p>
+        <p th:text="${productItem.price} + ' ₽'" class="card-button"></p>
         <br>
         <a th:href="@{/sportline/brands/{brandId}(brandId=${productItem.brand.id})}"
            class="card-button" th:text="'Все товары от ' + ${productItem.brand.name} + ' >'">
         </a>
     </div>
 </div>
-<form th:action="@{/sportline/products/{id}(id=${productItem.id})}"
-      th:object="${productItem}"
-      th:method="put">
+
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/products/{id}(id=${productItem.id})}"
+        th:object="${productItem}"
+        th:method="put"
+>
 
     <h2>Изменить товар</h2>
 
@@ -53,7 +58,11 @@
            value="Изменить"/>
 </form>
 
-<form th:action="@{/sportline/products/{id}(id=*{productItem.id})}" th:method="delete">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/products/{id}(id=*{productItem.id})}"
+        th:method="delete"
+>
     <h2>Удалить товар</h2>
     <input type="submit"
            onclick="return confirm('Вы уверены, что хотите удалить этот товар?')"

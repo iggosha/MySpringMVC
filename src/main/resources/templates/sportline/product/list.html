@@ -1,7 +1,12 @@
 <div th:replace="~{/sportline/basic/header.html}"></div>
 
 <section>
-    <form th:method="post" th:action="@{/sportline/products}" th:object="${product}">
+    <form
+            th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+            th:method="post"
+            th:action="@{/sportline/products}"
+            th:object="${product}"
+    >
         <h1>Добавить товар</h1>
 
         <label for="heading">Название:</label>
@@ -34,7 +39,6 @@
         </select>
 
         <br>
-
         <input type="submit"
                class="card-button"
                value="Добавить"/>
@@ -44,22 +48,44 @@
 
 <section>
     <h1 class="light-rounded">Товары в SportLine</h1>
+
+    <form th:action="@{/sportline/products?pageNum=${productsPage.number}}"
+          th:method="get">
+        <label for="prod-search">Найти товар по названию:</label>
+        <input type="text" placeholder="Название товара" name="searchName" id="prod-search" th:value="${searchName}">
+
+        <label for="prod-sort">Сортировать по:</label>
+        <select name="fieldName" id="prod-sort">
+            <option th:each="fieldNameItem : ${fieldNamesMap.keySet()}"
+                    th:value="${fieldNameItem}"
+                    th:text="${fieldNamesMap.get(fieldNameItem)}">
+            </option>
+        </select>
+
+        <label for="asc">Сортировать по возрастанию:</label>
+        <input type="checkbox" name="asc" id="asc">
+        <br>
+        <input type="submit" class="card-button" value="Найти">
+    </form>
+
+
     <div class="card-container">
         <div class="card" th:each="productItem : ${productsList}">
-            <p th:text="${productItem.brand.name} + ' ' + ${productItem.name}"></p>
+            <p th:text="${productItem.name}"></p>
+            <p th:text="${productItem.brand.name}"></p>
             <img th:src="${productItem.imgSrc}" alt="Изображение товара" style="width: 24vh">
-            <p th:text="${productItem.price} + ' руб.'"></p>
+            <p th:text="${productItem.price} + ' ₽'" class="card-button"></p>
             <a th:href="@{/sportline/products/{id}(id=*{productItem.id})}" class="card-button">Перейти ></a>
         </div>
     </div>
     <div class="card-page-nav light-rounded">
         <a th:if="${productsPage.hasPrevious()}"
-           th:href="@{/sportline/products(pageNum=${productsPage.number - 1})}"
+           th:href="@{/sportline/products(pageNum=${productsPage.number - 1}, searchName=${searchName}, asc=${asc}, fieldName=${fieldName})}"
            class="card-button">
             < Предыдущая страница
         </a>
         <a th:if="${productsPage.hasNext()}"
-           th:href="@{/sportline/products(pageNum=${productsPage.number + 1})}"
+           th:href="@{/sportline/products(pageNum=${productsPage.number + 1}, searchName=${searchName}, asc=${asc}, fieldName=${fieldName})}"
            class="card-button">
             Следующая страница >
         </a>

@@ -7,12 +7,16 @@
         <p th:text="'Описание: '+*{description}"></p>
         <a th:href="*{website}"
            th:text="'Веб-сайт: '+*{website}"
-           class="card-button"
            target="_blank"></a>
     </div>
 </div>
 
-<form th:action="@{/sportline/brands/{id}(id=${brandItem.id})}" th:object="${brandItem}" th:method="put">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/brands/{id}(id=${brandItem.id})}"
+        th:object="${brandItem}"
+        th:method="put"
+>
 
     <h2>Изменить бренд</h2>
 
@@ -35,7 +39,11 @@
            value="Изменить"/>
 </form>
 
-<form th:action="@{/sportline/brands/{id}(id=${brandItem.id})}" th:method="delete">
+<form
+        th:if="${userDetailsWrapper!=null && userDetailsWrapper.user.hasRoleAdmin()}"
+        th:action="@{/sportline/brands/{id}(id=${brandItem.id})}"
+        th:method="delete"
+>
     <h2>Удалить бренд</h2>
     <input type="submit"
            onclick="return confirm('Вы уверены, что хотите удалить этот бренд?')"

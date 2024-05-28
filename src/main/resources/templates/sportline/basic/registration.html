@@ -1,0 +1,22 @@
+<div th:replace="~{/sportline/basic/header.html}"></div>
+
+<form th:method="POST" th:action="@{/sportline/registration}" th:object="${user}">
+    <label for="username">Введите имя: </label>
+    <input type="text" name="username" id="username"/>
+    <div th:if="${#fields.hasErrors('username')}" style="color: red" th:errors="*{username}"> Некорректное имя пользователя</div>
+
+
+    <label for="date-of-birth">Введите дату рождения: </label>
+    <input type="date" name="dateOfBirth" id="date-of-birth"/>
+    <div th:if="${#fields.hasErrors('dateOfBirth')}" style="color: red" th:errors="*{dateOfBirth}"> Некорректная дата рождения </div>
+
+
+    <label for="password">Введите пароль: </label>
+    <input type="password" name="password" id="password"/>
+    <div th:if="${#fields.hasErrors('password')}" style="color: red" th:errors="*{password}"> Некорректный пароль </div>
+
+    <br>
+    <input type="submit" value="Зарегистрироваться" class="card-button">
+</form>
+
+<div th:replace="~{/sportline/basic/footer.html}"></div>

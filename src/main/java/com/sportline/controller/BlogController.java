@@ -1,8 +1,10 @@
 package com.sportline.controller;
 
 import com.sportline.model.entity.BlogPost;
+import com.sportline.security.UserDetailsWrapper;
 import com.sportline.service.BlogService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,18 +39,28 @@ public class BlogController {
     }
 
     @GetMapping("")
-    public String getBlogPosts(Model model,
+    public String getBlogPosts(Authentication authentication,
+                               Model model,
                                @ModelAttribute("blogPost") BlogPost blogPost,
                                @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,
                                @RequestParam(name = "pageSize", required = false, defaultValue = "4") int pageSize) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("blogPostsPage", blogService.findAllByPage(pageNum, pageSize));
         model.addAttribute("blogPostsList", blogService.findAllByPage(pageNum, pageSize).getContent());
         return "sportline/blog/list";
     }
 
     @GetMapping("/{id}")
-    public String getBlogPost(Model model,
-                            @PathVariable("id") long id) {
+    public String getBlogPost(Authentication authentication,
+                              Model model,
+                              @PathVariable("id") long id) {
+        if (authentication != null) {
+            UserDetailsWrapper userDetailsWrapper = (UserDetailsWrapper) authentication.getPrincipal();
+            model.addAttribute("userDetailsWrapper", userDetailsWrapper);
+        }
         model.addAttribute("blogPostItem", blogService.getById(id));
         return "sportline/blog/item";
     }

@@ -1,6 +1,6 @@
 package com.sportline.service.impl;
 
-import com.sportline.exc.CustomNotFoundException;
+import com.sportline.exc.custom.CustomNotFoundException;
 import com.sportline.model.entity.BlogPost;
 import com.sportline.repository.BlogRepository;
 import com.sportline.service.BlogService;
@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +23,28 @@ public class BlogServiceImpl implements BlogService {
     private final BlogRepository blogRepository;
 
     @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void create(BlogPost blogPost) {
         blogPost.setPublicationDate(LocalDateTime.now());
         blogRepository.save(blogPost);
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public void updateById(BlogPost blogPost, long id) {
+        BlogPost blogPostBefore = getById(id);
+        blogPostBefore.setHeading(blogPost.getHeading());
+        blogPostBefore.setContent(blogPost.getContent());
+        blogRepository.save(blogPostBefore);
+    }
+
+    @Transactional
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Override
+    public void deleteById(Long id) {
+        blogRepository.deleteById(id);
     }
 
     @Override
@@ -46,20 +65,5 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository
                 .findById(id)
                 .orElseThrow(() -> new CustomNotFoundException("Запись в блоге", id));
-    }
-
-    @Transactional
-    @Override
-    public void updateById(BlogPost blogPost, long id) {
-        BlogPost blogPostBefore = getById(id);
-        blogPostBefore.setHeading(blogPost.getHeading());
-        blogPostBefore.setContent(blogPost.getContent());
-        blogRepository.save(blogPostBefore);
-    }
-
-    @Transactional
-    @Override
-    public void deleteById(Long id) {
-        blogRepository.deleteById(id);
     }
 }
